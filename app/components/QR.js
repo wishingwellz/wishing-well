@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import QRCode from 'react-native-qrcode'
-import Tabbar from 'react-native-tabbar'
+import NavigationBar from 'react-native-navbar';
+
+
+
+const leftButtonConfig = {
+  title: 'Scan',
+  tintColor: 'black'
+};
 
 export default class QR extends Component {
   constructor() {
@@ -13,12 +20,18 @@ export default class QR extends Component {
 
   render() {
     return (
-      <View style={styles.body}>
-        <View style={styles.qrTop}>
-          <Text>Scan</Text>
+      <View>
+        <NavigationBar
+            leftButton={leftButtonConfig}
+            title={{title:'QR Code'}}
+            tintColor="#00BFFF"
+            style={styles.navBar}
+          />
+        <View style={styles.body}>
+          
+          <QRCode value={this.state.text} size={200} />
+          <Text>This is your QR code</Text>
         </View>
-        <Text>This is your QR code</Text>
-        <QRCode value={this.state.text} size={200} />
       </View>
     )
   }
@@ -28,11 +41,10 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: '30%'
   },
-  qrTop: {
-    borderWidth: 1,
-    width: '100%',
-    height: '10%'
+  navBar: {
+    borderBottomWidth: 1,
   }
 })
