@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import Expo from 'expo'
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
 export default class Well extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      amount: '',
+      description: '',
+    }
+  }
 
   componentWillMount() {
     this.scene = new THREE.Scene();
@@ -14,8 +23,8 @@ export default class Well extends Component {
 
     this.camera.position.z = 1000;
 
-    
-    this.geometry = new THREE.CylinderGeometry(300, 300, 50, 320);
+
+    this.geometry = new THREE.CylinderGeometry(350, 350, 50, 320);
     this.material = new THREE.MeshBasicMaterial({color: 0xFFDF00});
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
@@ -26,19 +35,41 @@ export default class Well extends Component {
     this.mesh.rotation.y += 2 / 60;
   }
 
+  onSwipeUp(gestureState) {
+    Alert.alert('You swiped Up!!!');
+  }
+
   render() {
+
+    const config = {
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80
+    };
+
     return (
       <View style={styles.body}>
         <View style={styles.inputFields}>
-          <Text style={styles.credentials}>Input Amount</Text><TextInput style={styles.inputFields}/>
-          <Text style={styles.credentials}>Description</Text><TextInput style={styles.inputFields}/>
+          <View style={{height: "20%"}}>
+            <Text style={styles.credentials}>Input Amount</Text>
+          </View>
+          <TextInput style={styles.amountInputField} placeholder="Amount Here" onChangeText={(text) => this.setState({amount: text})} value={this.state.amount}/>
+          <View style={{height: "20%"}}>
+            <Text style={styles.credentials}>Description</Text>
+          </View>
+          <TextInput style={styles.descriptionInputField} placeholder='Description Here' onChangeText={(text) => this.setState({description: text})} value={this.state.description}/>
         </View>
-        <THREEView
+        <GestureRecognizer
+          onSwipeUp={(state) => this.onSwipeUp(state)}
+          config={config}
           style={styles.coin}
-          scene={this.scene}
-          camera={this.camera}
-          tick={this.tick}
-        />
+          >
+          <THREEView
+            style={styles.coin}
+            scene={this.scene}
+            camera={this.camera}
+            tick={this.tick}
+          />
+        </GestureRecognizer>
       </View>
     )
   }
@@ -52,19 +83,32 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   coin: {
-    height: '60%',
-    width: '60%',
+    height: '80%',
+    width: '100%',
   },
   inputFields: {
-    marginTop: '20%',
-    height: 50,
-    width: 50,
+    marginTop: '5%',
+    height: '35%',
+    width: 200,
+    borderColor: 'gray',
   },
   credentials: {
-    paddingTop: 20
+    paddingTop: 10
   },
-  inputFields: {
-    width: '50%',
-    marginTop: 20
+  amountInputField: {
+    width: '100%',
+    height: '30%',
+    borderColor: 'gray',
+    borderColor: 'gray',
+    borderWidth: 1,
+    textAlign: 'center'
+  },
+  descriptionInputField: {
+    width: '100%',
+    height: '30%',
+    borderColor: 'gray',
+    borderColor: 'gray',
+    borderWidth: 1,
+    textAlign: 'center'
   }
 })
