@@ -21,7 +21,7 @@ import QR from './app/components/QR'
 import Profile from './app/components/Profile'
 import Well from './app/components/Well'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import Expo from 'expo'
 // should use store here (redux)
 
 class TabIcon extends Component {
@@ -75,3 +75,4 @@ const styles = StyleSheet.create({
 });
 
 // AppRegistry.registerComponent('WishingWell', () => WishingWell);
+Expo.registerRootComponent(WishingWell);
