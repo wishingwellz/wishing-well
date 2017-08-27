@@ -13,6 +13,7 @@ export default class Well extends Component {
     this.state = {
       amount: '',
       description: '',
+      coinSpeed: 20,
     }
   }
 
@@ -31,12 +32,15 @@ export default class Well extends Component {
     this.scene.add(this.mesh);
   }
   tick = () => {
-    this.mesh.rotation.x += 1 / 30;
+    this.mesh.rotation.x += 1 / this.state.coinSpeed;
     this.mesh.rotation.y += 2 / 60;
   }
 
   onSwipeUp(gestureState) {
     Alert.alert('You swiped Up!!!');
+    this.setState({
+      coinSpeed: 2,
+    })
   }
 
   render() {
