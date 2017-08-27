@@ -5,6 +5,9 @@
   "author": null,
   "private": true,
   "main": "./App.js",
+  "scripts": {
+    "start": "node ./server/server.js"
+  },
   "dependencies": {
     "babel-preset-expo": "^3.0.0",
     "body-parser": "^1.17.2",
