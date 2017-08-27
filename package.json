@@ -4,18 +4,20 @@
   "description": "Hello Expo!",
   "author": null,
   "private": true,
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "./App.js",
   "dependencies": {
+    "babel-preset-expo": "^3.0.0",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
-    "expo": "^20.0.0",
+    "expo": "^17.0.0",
     "express": "^4.15.4",
     "path": "^0.12.7",
-    "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-20.0.0.tar.gz",
+    "react": "16.0.0-alpha.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
     "react-native-router-flux": "^4.0.0-beta.19",
     "react-native-vector-icons": "^4.3.0",
     "react-navigation": "^1.0.0-beta.11",
-    "realm": "^1.10.3"
+    "realm": "^1.10.3",
+    "three": "^0.85.2"
   }
 }
