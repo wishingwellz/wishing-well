@@ -4,13 +4,18 @@ import {
   Text,
   View,
   TextInput,
-  Button
+  Button,
+  Animated
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 import LandingPage from './LandingPage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Expo from 'expo'
+import Animation from 'lottie-react-native'
 
+
+
+
+import Expo from 'expo'
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
@@ -42,11 +47,33 @@ export default class WishingWell extends Component {
 //   this.mesh.rotation.y += 1 / 60;
 //   this.mesh.rotateOnAxis(this.yAxis, 0.1)
 // }
-
+  constructor() {
+    super()
+    this.state = {
+      progress: new Animated.Value(0)
+    }
+  }
+  
+  componentDidMount() {
+    Animated.timing(this.state.progress, {
+      toValue: 1,
+      duration: 5000,
+    }).start()
+  }
   render() {
     return (
       <View style={styles.container}>
-         <Icon name="currency-usd" size={30} color="#000" />
+          <Animation
+        style={{
+          width: 150,
+          height: 100,
+          justifyContent:'center',
+          alignItems:'center',
+          marginRight: '30%'
+        }}
+        source={require('../animation/paymentCheck.json')}
+        progress={this.state.progress}
+      />
         <Text style={styles.title}>
           Wishing Well
         </Text>
@@ -54,8 +81,7 @@ export default class WishingWell extends Component {
         <Text style={styles.credentials}>username</Text><TextInput style={styles.inputFields}/>
         <Text style={styles.credentials}>password</Text><TextInput style={styles.inputFields}/>
 
-         <Button title="Login" onPress={() => Actions.Home()}></Button>  
-          
+         <Button title="Login" onPress={() => Actions.Home()}></Button>   
       </View>
     //     <THREEView
     //   style={{ flex: 1, height: 50, width: 200 }}

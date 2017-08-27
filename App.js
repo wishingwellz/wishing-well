@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -22,6 +16,7 @@ import Profile from './app/components/Profile'
 import Well from './app/components/Well'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
+
 // should use store here (redux)
 
 class TabIcon extends Component {
