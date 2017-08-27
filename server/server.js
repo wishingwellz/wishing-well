@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const parser = require('body-parser');
 const Realm = require('realm');
-const models = require('./serverModels/models.js');
+const models = require('./dbModels/models.js');
 const dotenv = require('dotenv').config();
 
 let app = express();
