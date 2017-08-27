@@ -4,7 +4,8 @@ import {
   Text,
   View,
   TextInput,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
 
@@ -14,7 +15,31 @@ export default class LandingPage extends Component {
   render() {
     return (
       <View style={styles.body}>
-        <Text>This is a Landing page</Text>
+
+        <Text>This is the Home page</Text>
+        <ScrollView>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            <Text>scrollable well</Text>
+            
+        </ScrollView>
       </View>
     )
   }
