@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -19,6 +13,7 @@ import Landing from './app/components/LandingPage'
 import LogHistory from './app/components/LogHistory'
 import QR from './app/components/QR'
 import Profile from './app/components/Profile'
+import Settings from './app/components/Settings'
 import Well from './app/components/Well'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
@@ -48,8 +43,8 @@ export default class WishingWell extends Component {
             <Scene key="Well" component={Well} iconName="currency-usd" icon={TabIcon} hideNavBar/>
             <Scene key="Log" component={LogHistory} iconName="format-list-bulleted" icon={TabIcon} hideNavBar/>
             <Scene key="Profile" component={Profile} iconName="account-outline" icon={TabIcon} hideNavBar/>
-
           </Scene>
+            <Scene key="Settings" component={Settings} hideNavBar/> 
         </Scene>
       </Router>
     );
