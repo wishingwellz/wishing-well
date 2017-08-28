@@ -37,10 +37,7 @@ export default class Well extends Component {
   }
 
   onSwipeUp(gestureState) {
-    Alert.alert('You swiped Up!!!');
-    this.setState({
-      coinSpeed: 2,
-    })
+    (this.state.coinSpeed === 20) ? this.setState({coinSpeed: 2}) : this.setState({coinSpeed: 20})
   }
 
   render() {
