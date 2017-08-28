@@ -7,49 +7,37 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
-import Register from './Register'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Expo from 'expo'
+import Login from './Login'
 import { firebaseRef } from '../services/firebase'
 
-const THREE = require('three')
-const THREEView = Expo.createTHREEViewClass(THREE);
-
-export default class Login extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
       password: '',
-
+      reEnter: ''
     }
-    this._login = this._login.bind(this)
-    this._register = this._register.bind(this)
+    this._registerAccount = this._registerAccount.bind(this)
   }
 
-  _login() {
-    firebaseRef.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-    .then(data => {
-      if (data) {
-        Actions.Home()
-      }
-    })
-    .catch((err) => {
-      console.log(err.code)
-      console.log(err.message)
-    })
-  }
-
-  _register() {
-    Actions.Register()
+  _registerAccount() {
+    if (this.state.password === this.state.reEnter) {
+      firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(err => {
+        console.log(err.code)
+        console.log(err.message)
+      })
+      Actions.Login()
+    } else {
+      alert('There is something wrong with your credentials!')
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
-         <Icon name="currency-usd" size={30} color="#000" />
         <Text style={styles.title}>
-          Wishing Well
+          Register Account
         </Text>
         
         <TextInput 
@@ -71,8 +59,18 @@ export default class Login extends Component {
           autoCapitalize='none'
         />
 
-        <Button title="Login" onPress={this._login}></Button>  
-        <Button title="Register" onPress={this._register}></Button> 
+        <TextInput 
+          style={styles.inputFields}
+          placeholder="Re-enter password"
+          onChangeText={(text) => this.setState({reEnter: text})}
+          value={this.reEnter}
+          autoCorrect={false}
+          secureTextEntry={true}
+          autoCapitalize='none'
+        />
+
+        <Button title="Login" onPress={() => Actions.Login()}></Button>  
+        <Button title="Register" onPress={this._registerAccount}></Button> 
       </View>
     );
   }
@@ -99,3 +97,4 @@ const styles = StyleSheet.create({
     paddingTop: 20
   }
 });
+

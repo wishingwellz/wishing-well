@@ -22,6 +22,7 @@ import Profile from './app/components/Profile'
 import Well from './app/components/Well'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
+import Register from './app/components/Register'
 // should use store here (redux)
 
 class TabIcon extends Component {
@@ -42,13 +43,13 @@ export default class WishingWell extends Component {
       <Router>
         <Scene key="root" >
           <Scene key="Login" component={Login} initial hideNavBar/> 
+          <Scene key="Register" component={Register} hideNavBar/> 
           <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#FFFFFF' }}>
             <Scene key="Home" component={Landing} iconName="home" icon={TabIcon} hideNavBar/>
             <Scene key="QR" component={QR} iconName="qrcode" icon={TabIcon} hideNavBar/>
             <Scene key="Well" component={Well} iconName="currency-usd" icon={TabIcon} hideNavBar/>
             <Scene key="Log" component={LogHistory} iconName="format-list-bulleted" icon={TabIcon} hideNavBar/>
             <Scene key="Profile" component={Profile} iconName="account-outline" icon={TabIcon} hideNavBar/>
-
           </Scene>
         </Scene>
       </Router>
