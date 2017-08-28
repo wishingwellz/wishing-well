@@ -11,6 +11,8 @@ import Register from './Register'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import { firebaseRef } from '../services/firebase'
+import firebase from 'firebase'
+import { fbAppId } from '../../config'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
@@ -24,13 +26,14 @@ export default class Login extends Component {
 
     }
     this._login = this._login.bind(this)
-    this._register = this._register.bind(this)
+    this._loginWithFacebook = this._loginWithFacebook.bind(this)
   }
 
   _login() {
     firebaseRef.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(data => {
       if (data) {
+        console.log(data)
         Actions.Home()
       }
     })
@@ -40,9 +43,20 @@ export default class Login extends Component {
     })
   }
 
-  _register() {
-    Actions.Register()
+
+  async _loginWithFacebook() {
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
+        permissions: ['public_profile', 'email'],
+      });
+    
+    if (type === 'success') {
+      // Get the user's name using Facebook's Graph API
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}`);
+      Actions.Home()
+    }
   }
+
 
   render() {
     return (
@@ -72,7 +86,9 @@ export default class Login extends Component {
         />
 
         <Button title="Login" onPress={this._login}></Button>  
-        <Button title="Register" onPress={this._register}></Button> 
+        <Button title="Register" onPress={() => Actions.Register()}></Button> 
+        <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>  
+        <Button title="Bypass" onPress={() => Actions.Home()}></Button>  
       </View>
     );
   }
