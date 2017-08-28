@@ -21,6 +21,7 @@
     "react-native-navbar": "^2.0.1",
     "react-native-qrcode": "^0.2.6",
     "react-native-router-flux": "^4.0.0-beta.19",
+    "react-native-swipe-gestures": "^1.0.2",
     "react-native-vector-icons": "^4.3.0",
     "react-navigation": "^1.0.0-beta.11",
     "realm": "^1.10.3",
