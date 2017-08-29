@@ -5,6 +5,7 @@ let UserData = {
     lastName: {type: 'string'},
     username: {type: 'string'},
     email: {type: 'string'},
+    photo: {type: 'string'}
   }
 };
 
