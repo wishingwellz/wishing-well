@@ -41,34 +41,35 @@ class Settings extends Component {
           />
        </View>
        <Form
-        style={styles.form}
-        ref='registrationForm'
-        onFocus={this.handleFormFocus.bind(this)}
-        onChange={this.handleFormChange.bind(this)}
-        label="Personal Information" />
-       <Separator />
-       <InputField
-          ref='username'
-          label='Username'
-          placeholder='Username'
-        />
-       <InputField
-          ref='firstName'
-          label='First Name'
-          placeholder='First Name'
-        />
-       <InputField
-          ref='lastName'
-          label='Last Name'
-          placeholder='Last Name'
-        />
-       <InputField
-          ref='email'
-          label='Email'
-          placeholder='Email'
-        />
-      {console.log(this.state)}
-       </View>
+          style={styles.form}
+          ref='registrationForm'
+          onFocus={this.handleFormFocus.bind(this)}
+          onChange={this.handleFormChange.bind(this)}
+          label="Personal Information" />
+        <Separator />
+        <InputField
+            ref='username'
+            label='Username'
+            placeholder='Username'
+          />
+        <InputField
+            ref='firstName'
+            label='First Name'
+            placeholder='First Name'
+          />
+        <InputField
+            ref='lastName'
+            label='Last Name'
+            placeholder='Last Name'
+          />
+        <InputField
+            ref='email'
+            label='Email'
+            placeholder='Email'
+          />
+        {console.log(this.state)}
+        <Button>Save</Button>
+      </View>
     );
   }
 
