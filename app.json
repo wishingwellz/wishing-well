@@ -17,7 +17,8 @@
       "assetExts": ["ttf", "mp4"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "facebookScheme": "fb341563476268167"
     }
   }
 }
