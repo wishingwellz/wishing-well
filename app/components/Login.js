@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import { firebaseRef } from '../services/firebase'
 import firebase from 'firebase'
-import { fbAppId } from '../../config'
+import { fbAppId } from '../config'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
@@ -23,8 +23,6 @@ export default class Login extends Component {
    this.state = {
      email: '',
      password: '',
-
-<<<<<<< HEAD
     }
     this._login = this._login.bind(this)
     this._loginWithFacebook = this._loginWithFacebook.bind(this)
@@ -49,7 +47,7 @@ export default class Login extends Component {
     const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
         permissions: ['public_profile', 'email'],
       });
-    
+
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
       const response = await fetch(
@@ -66,8 +64,8 @@ export default class Login extends Component {
         <Text style={styles.title}>
           Wishing Well
         </Text>
-        
-        <TextInput 
+
+        <TextInput
           style={styles.inputFields}
           placeholder="Email"
           onChangeText={(text) => this.setState({email: text})}
@@ -75,8 +73,8 @@ export default class Login extends Component {
           autoCorrect={false}
           autoCapitalize='none'
         />
-        
-        <TextInput 
+
+        <TextInput
           style={styles.inputFields}
           placeholder="Password"
           onChangeText={(text) => this.setState({password: text})}
@@ -86,72 +84,21 @@ export default class Login extends Component {
           autoCapitalize='none'
         />
 
+<<<<<<< HEAD
         <Button title="Login" onPress={this._login}></Button>  
 
         <Button title="Register" onPress={() => Actions.Register()}></Button> 
         <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>  
         <Button title="Bypass" onPress={() => Actions.Home()}></Button>  
+=======
+        <Button title="Login" onPress={this._login}></Button>
+        <Button title="Register" onPress={() => Actions.Register()}></Button>
+        <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>
+        <Button title="Bypass" onPress={() => Actions.Home()}></Button>
+>>>>>>> Going to try to detach Expo
       </View>
     );
   }
-=======
-   }
-   this._login = this._login.bind(this)
-   this._register = this._register.bind(this)
- }
-
- _login() {
-   firebaseRef.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-   .then(data => {
-     if (data) {
-       console.log(data)
-       Actions.Home()
-     }
-   })
-   .catch((err) => {
-     console.log(err.code)
-     console.log(err.message)
-   })
- }
-
- _register() {
-   Actions.Register()
- }
-
- render() {
-   return (
-     <View style={styles.container}>
-        <Icon name="currency-usd" size={30} color="#000" />
-       <Text style={styles.title}>
-         Wishing Well
-       </Text>
-
-       <TextInput
-         style={styles.inputFields}
-         placeholder="Email"
-         onChangeText={(text) => this.setState({email: text})}
-         value={this.email}
-         autoCorrect={false}
-         autoCapitalize='none'
-       />
-
-       <TextInput
-         style={styles.inputFields}
-         placeholder="Password"
-         onChangeText={(text) => this.setState({password: text})}
-         value={this.password}
-         autoCorrect={false}
-         secureTextEntry={true}
-         autoCapitalize='none'
-       />
-
-       <Button title="Login" onPress={this._login}></Button>
-       <Button title="Register" onPress={this._register}></Button>
-       <Button title="BypassAuth" onPress={() => Actions.Home()}></Button>
-     </View>
-   );
- }
->>>>>>> Working on the AddCard page
 }
 
 const styles = StyleSheet.create({

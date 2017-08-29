@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { View, Text, Button, StyleSheet, TouchableHighlight } from 'react-native'
+import NavigationBar from 'react-native-navbar'
 import { Actions } from 'react-native-router-flux'
-
+import AddCard from './UserAuth/AddCard.js'
 export default class Profile extends Component {
 
   render() {
@@ -14,7 +15,12 @@ export default class Profile extends Component {
         <TouchableHighlight onPress={() => Actions.Settings()}>
           <Text>Settings</Text>
         </TouchableHighlight>
+<<<<<<< HEAD
         </View>
+=======
+        <Button title="AddCard" onPress={() => Actions.AddCard()}>Add a Credit Card</Button>
+      </View>
+>>>>>>> Going to try to detach Expo
     )
   }
 }

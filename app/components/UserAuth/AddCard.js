@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
+var stripe = require('stripe-client')('pk_test_BdMP2UsKn1fFN5z8zn1wcEhs');
+
+var information = {
+  card: {
+    number: '4242424242424242',
+    exp_month: '02',
+    exp_year: '21',
+    cvc: '999',
+    name: 'Billy Joe'
+  }
+}
 
 export default class AddCard extends Component {
 
@@ -14,7 +25,21 @@ export default class AddCard extends Component {
   }
 
   addACard() {
+    stripe.createToken({
+      card: {
+        "number": '4242424242424242',
+        "exp_month": 12,
+        "exp_year": 2018,
+        "cvc": '123'
+      }
+    });
     Alert.alert('Added a Card!')
+  }
+
+  async onPayment() {
+    var card = await stripe.createToken(information);
+    var token = card.id;
+    Alert.alert(token)
   }
 
   render() {
