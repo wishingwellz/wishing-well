@@ -2,9 +2,12 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import Expo from 'expo'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
+import * as firebase from "firebase"
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
+
+const db = firebase.database() 
 
 export default class Well extends Component {
 
@@ -15,6 +18,7 @@ export default class Well extends Component {
       description: '',
       coinSpeed: 20,
     }
+    this.onSwipeUp = this.onSwipeUp.bind(this)
   }
 
   componentWillMount() {
@@ -38,7 +42,19 @@ export default class Well extends Component {
 
   onSwipeUp(gestureState) {
     (this.state.coinSpeed === 20) ? this.setState({coinSpeed: 2}) : this.setState({coinSpeed: 20})
+    
+
+    //we can use usernmae for ref so each username gets its individual log
+    const ref = db.ref('logs')
+
+    ref.push({
+      amount: this.state.amount,
+      description: this.state.description
+    })
+
   }
+
+
 
   render() {
 
