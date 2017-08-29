@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, Image, TextInput } from 'react-native';
 import { ImagePicker } from 'expo'
-import { Form, Separator, InputField, LinkField, SwitchField, PickerField
-} from 'react-native-form-generator';
+import { Form, Separator, InputField, LinkField, SwitchField, PickerField} from 'react-native-form-generator';
+import { connect } from 'react-redux';
+import { setUserInfo } from '../Actions/Profile/ProfileAction'
+
+const mapStateToProps = (state) => {
+  return {
+    username: state.ProfileReducer.username,
+    firstname: state.ProfileReducer.firstname,
+    lastname: state.ProfileReducer.lastname,
+    email: state.ProfileReducer.email  }
+}
 
 class Settings extends Component {
   static navigationOptions = {
@@ -14,18 +23,19 @@ class Settings extends Component {
       image: null,
       formData: {}
     }
+    this.handleOnSave = this.handleOnSave.bind(this)
   }
 
   handleFormChange(formData){
-    formData = {
-      username:''
-    }
-    this.setState({formData:formData})
-    this.props.onFormChange && this.props.onFormChange(formData);
+    this.state.formData= formData
   }
 
   handleFormFocus(e, component){
     //console.log(e, component);
+  }
+  
+  handleOnSave() {
+    this.props.setUserInfo(this.state.formData)
   }
 
   render() {
@@ -45,32 +55,39 @@ class Settings extends Component {
           ref='registrationForm'
           onFocus={this.handleFormFocus.bind(this)}
           onChange={this.handleFormChange.bind(this)}
-          label="Personal Information" />
-        <Separator />
+          label="Personal Information" >
+        <Separator/>
         <InputField
             ref='username'
             label='Username'
             placeholder='Username'
+            value={this.props.username}
           />
         <InputField
-            ref='firstName'
+            ref='firstname'
             label='First Name'
             placeholder='First Name'
+            value={this.props.firstname}
           />
+
         <InputField
-            ref='lastName'
+            ref='lastname'
             label='Last Name'
             placeholder='Last Name'
+            value={this.props.lastname}
           />
+
         <InputField
             ref='email'
             label='Email'
             placeholder='Email'
+            value={this.props.email}
           />
-        {console.log(this.state)}
+        </Form>
         <Button
           title="save"
-        >Save</Button>
+          onPress={() => this.handleOnSave()}
+        ></Button>
       </View>
     );
   }
@@ -102,8 +119,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   form: {
-    flex: 1
+    // flex: 1
   }
 });
 
-export default Settings;
+export default connect(mapStateToProps, { setUserInfo })(Settings);

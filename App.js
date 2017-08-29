@@ -22,11 +22,8 @@ import Expo from 'expo'
 import Register from './app/components/Register'
 import reducers from './app/Reducers/index'
 
-// should use store here (redux)
-
 
 const store = createStore(reducers)
-
 
 class TabIcon extends Component {
   render() {

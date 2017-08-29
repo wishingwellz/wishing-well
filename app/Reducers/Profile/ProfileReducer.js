@@ -2,27 +2,17 @@ export const ProfileReducer = (state={
   username: '',
   firstname: '',
   lastname: '',
-  email: ''
+  email: '',
+  // photo: '',
 }, action) => {
   switch(action.type) {
-    case 'USERNAME': {
+    case 'SET_USERINFO': {
       return Object.assign({}, state, {
-        username: action.payload
-      })
-    }
-    case 'FIRSTNAME': {
-      return Object.assign({}, state, {
-        firstname: action.payload
-      })
-    }
-    case 'LASTNAME': {
-      return Object.assign({}, state, {
-        lastname: action.payload
-      })
-    }
-    case 'EMAIL': {
-      return Object.assign({}, state, {
-        email: action.payload
+        username: action.payload.username || state.username,
+        firstname: action.payload.firstname || state.firstname,
+        lastname: action.payload.lastname || state.lastname,
+        email: action.payload.email || state.email,
+        // photo: action.payload.photo || state.photo
       })
     }
     default: {
