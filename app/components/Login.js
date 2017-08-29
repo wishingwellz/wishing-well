@@ -73,6 +73,7 @@ export default class Login extends Component {
 
         <Button title="Login" onPress={this._login}></Button>  
         <Button title="Register" onPress={this._register}></Button> 
+        <Button title="BypassAuth" onPress={() => Actions.Home()}></Button>
       </View>
     );
   }
