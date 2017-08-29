@@ -15,12 +15,8 @@ export default class Profile extends Component {
         <TouchableHighlight onPress={() => Actions.Settings()}>
           <Text>Settings</Text>
         </TouchableHighlight>
-<<<<<<< HEAD
-        </View>
-=======
         <Button title="AddCard" onPress={() => Actions.AddCard()}>Add a Credit Card</Button>
       </View>
->>>>>>> Going to try to detach Expo
     )
   }
 }

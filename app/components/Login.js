@@ -60,7 +60,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-         <Icon name="currency-usd" size={30} color="#000" />
+        <Icon name="currency-usd" size={30} color="#000" />
         <Text style={styles.title}>
           Wishing Well
         </Text>
@@ -84,18 +84,12 @@ export default class Login extends Component {
           autoCapitalize='none'
         />
 
-<<<<<<< HEAD
-        <Button title="Login" onPress={this._login}></Button>  
-
-        <Button title="Register" onPress={() => Actions.Register()}></Button> 
-        <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>  
-        <Button title="Bypass" onPress={() => Actions.Home()}></Button>  
-=======
         <Button title="Login" onPress={this._login}></Button>
+
         <Button title="Register" onPress={() => Actions.Register()}></Button>
         <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>
         <Button title="Bypass" onPress={() => Actions.Home()}></Button>
->>>>>>> Going to try to detach Expo
+
       </View>
     );
   }
