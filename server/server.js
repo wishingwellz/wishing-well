@@ -21,7 +21,7 @@ Realm.Sync.User.login(process.env.DATABASE_URL, process.env.DATABASE_USERNAME, p
       schema: [models.UserData, models.UserLogs]
     }).then(realm => {
       realm.write(() => {
-        realm.create('UserData', {firstName: 'Freddy', lastName: 'Kruger', username: 'dreamEater', email: 'iEatKidsInTheirSleep@gmail.com' });
+        realm.create('UserData', {firstName: 'Freddy', lastName: 'Kruger', username: 'dreamEater', email: 'iEatKidsInTheirSleep@gmail.com', photo: 'iEatKidsInTheirSleep.com' });
       });
       realm.write(() => {
         realm.create('UserLogs', {username: 'dreamEater', wellInput: 7, totalWellAmount: 35, description: "Went to the store to buy new knives, didn't buy one" });

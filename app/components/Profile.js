@@ -7,13 +7,13 @@ export default class Profile extends Component {
   render() {
     return (
       <View style={styles.body}>
-          <Text>Username</Text>
-          <Text>First Name</Text>
-          <Text>Last Name</Text>
-          <Text>Email</Text>
-          <TouchableHighlight onPress={() => Actions.Settings()}>
-            <Text>Settings</Text>
-          </TouchableHighlight>
+        <Text>Username</Text>
+        <Text>First Name</Text>
+        <Text>Last Name</Text>
+        <Text>Email</Text>
+        <TouchableHighlight onPress={() => Actions.Settings()}>
+          <Text>Settings</Text>
+        </TouchableHighlight>
         </View>
     )
   }

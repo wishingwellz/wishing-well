@@ -86,6 +86,7 @@ export default class Login extends Component {
         />
 
         <Button title="Login" onPress={this._login}></Button>  
+
         <Button title="Register" onPress={() => Actions.Register()}></Button> 
         <Button title="Login with FaceBook" onPress={this._loginWithFacebook}></Button>  
         <Button title="Bypass" onPress={() => Actions.Home()}></Button>  
