@@ -15,6 +15,9 @@ import QR from './app/components/QR'
 import Profile from './app/components/Profile'
 import Settings from './app/components/Settings'
 import Well from './app/components/Well'
+import AddCard from './app/components/UserAuth/AddCard'
+
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import Register from './app/components/Register'
@@ -37,8 +40,8 @@ export default class WishingWell extends Component {
     return (
       <Router>
         <Scene key="root" >
-          <Scene key="Login" component={Login} initial hideNavBar/> 
-          <Scene key="Register" component={Register} hideNavBar/> 
+          <Scene key="Login" component={Login} initial hideNavBar/>
+          <Scene key="Register" component={Register} hideNavBar/>
           <Scene key="tabbar" tabs={true} tabBarStyle={{ backgroundColor: '#FFFFFF' }}>
             <Scene key="Home" component={Landing} iconName="home" icon={TabIcon} hideNavBar/>
             <Scene key="QR" component={QR} iconName="qrcode" icon={TabIcon} hideNavBar/>
@@ -46,7 +49,8 @@ export default class WishingWell extends Component {
             <Scene key="Log" component={LogHistory} iconName="format-list-bulleted" icon={TabIcon} hideNavBar/>
             <Scene key="Profile" component={Profile} iconName="account-outline" icon={TabIcon} hideNavBar/>
           </Scene>
-            <Scene key="Settings" component={Settings} hideNavBar/> 
+            <Scene key="Settings" component={Settings} hideNavBar/>
+            <Scene key="AddCard" component={AddCard} title="AddCard"/>
         </Scene>
       </Router>
     );
