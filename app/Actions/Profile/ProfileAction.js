@@ -1,24 +1,7 @@
-export const username = (username) => {
+
+export const setUserInfo = (user) => {
   return {
-    type: 'USERNAME',
-    payload: username
-  }
-}
-export const firstname = (firstname) => {
-  return {
-    type: 'FIRSTNAME',
-    payload: firstname
-  }
-}
-export const lastname = (lastname) => {
-  return {
-    type: 'LASTNAME',
-    payload: lastname
-  }
-}
-export const email = (email) => {
-  return {
-    type: 'EMAIL',
-    payload: email
+    type: 'SET_USERINFO',
+    payload: user
   }
 }

@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Button, Image, TextInput } from 'react-native';
 import { ImagePicker } from 'expo'
 import { Form, Separator, InputField, LinkField, SwitchField, PickerField
 } from 'react-native-form-generator';
+import { connect } from 'react-redux'
+import { setUserInfo } from '../Actions/Profile/ProfileAction'
 
 class Settings extends Component {
   static navigationOptions = {
@@ -10,22 +12,23 @@ class Settings extends Component {
   };
   constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       image: null,
       formData: {}
     }
+    this.handleOnSave = this.handleOnSave.bind(this)
   }
 
   handleFormChange(formData){
-    formData = {
-      username:''
-    }
-    this.setState({formData:formData})
-    this.props.onFormChange && this.props.onFormChange(formData);
+    this.state.formData = formData
   }
 
   handleFormFocus(e, component){
     //console.log(e, component);
+  }
+
+  handleOnSave() {
+    this.props.setUserInfo(this.state.formData)
   }
 
   render() {
@@ -40,37 +43,40 @@ class Settings extends Component {
             onPress={this._pickImage}
           />
        </View>
+       <Separator />
        <Form
           style={styles.form}
           ref='registrationForm'
           onFocus={this.handleFormFocus.bind(this)}
           onChange={this.handleFormChange.bind(this)}
-          label="Personal Information" />
-        <Separator />
+          label="Personal Information" >
+          <Separator />
         <InputField
             ref='username'
             label='Username'
             placeholder='Username'
           />
-        <InputField
-            ref='firstName'
+     
+         <InputField
+            ref='firstname'
             label='First Name'
             placeholder='First Name'
           />
+        
         <InputField
-            ref='lastName'
+            ref='lastname'
             label='Last Name'
             placeholder='Last Name'
           />
+      
         <InputField
             ref='email'
             label='Email'
             placeholder='Email'
-          />
-        {console.log(this.state)}
-        <Button
-          title="save"
-        >Save</Button>
+          /> 
+ 
+        </Form>
+         <Button title="save" onPress={() => this.handleOnSave()}></Button> 
       </View>
     );
   }
@@ -100,10 +106,8 @@ const styles = StyleSheet.create({
     borderRadius: 50, 
     width: 100,
     alignItems: 'center',
-  },
-  form: {
-    flex: 1
   }
 });
 
-export default Settings;
+export default connect(null, { setUserInfo })(Settings)
+// export default Settings

@@ -9,6 +9,11 @@ import {
 import { Actions } from 'react-native-router-flux'
 import Login from './Login'
 import { firebaseRef } from '../services/firebase'
+import * as firebase from 'firebase'
+
+const db = firebase.database()
+
+
 
 export default class Register extends Component {
   constructor(props) {
@@ -26,6 +31,11 @@ export default class Register extends Component {
       firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(err => {
         console.log(err.code)
         console.log(err.message)
+      })
+      const username = this.state.email.substring(0, this.state.email.length - 10)
+      const userTable = db.ref('users/' + username)
+      userTable.set({
+        username: this.state.email
       })
       Actions.Login()
     } else {
