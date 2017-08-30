@@ -4,14 +4,21 @@ import { ImagePicker } from 'expo'
 import { Form, Separator, InputField, LinkField, SwitchField, PickerField} from 'react-native-form-generator';
 import { connect } from 'react-redux';
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
+import { setUserPhoto } from '../Actions/Profile/PhotoAction'
+import NavigationBar from 'react-native-navbar'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const mapStateToProps = (state) => {
   return {
     username: state.ProfileReducer.username,
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
-    email: state.ProfileReducer.email  }
-}
+    email: state.ProfileReducer.email,
+    photo: state.PhotoReducer.photo,
+    bio: state.PhotoReducer.bio,
+
+  }}
+  
 
 class Settings extends Component {
   static navigationOptions = {
@@ -20,72 +27,81 @@ class Settings extends Component {
   constructor(props) {
     super(props)
     this.state={
-      image: null,
+      photo: null,
       formData: {}
     }
+    
     this.handleOnSave = this.handleOnSave.bind(this)
+    this.handleFormChange = this.handleFormChange.bind(this)
   }
-
+  
   handleFormChange(formData){
     this.state.formData= formData
-  }
-
-  handleFormFocus(e, component){
-    //console.log(e, component);
   }
   
   handleOnSave() {
     this.props.setUserInfo(this.state.formData)
+    if (this.state.photo === null && this.props.photo) {
+      this.setState({
+        photo: this.props.photo
+      })
+    }
+    this.props.setUserPhoto(this.state.photo)
   }
 
   render() {
-    let { image } = this.state;    
+    let { photo } = this.state;    
     return (
       <View>
        <View style={styles.body}>
-        {image &&
-          <Image source={{ uri: image }} onPress={this._pickImage} style={styles.image} />}
+          <Image source={{ uri: photo || this.props.photo }} onPress={this._pickImage} style={styles.image} />
         <Button
             title="Change Profile Photo"
             onPress={this._pickImage}
-          />
+        />
        </View>
+        <Separator label="Personal Information"/>
        <Form
           style={styles.form}
-          ref='registrationForm'
-          onFocus={this.handleFormFocus.bind(this)}
-          onChange={this.handleFormChange.bind(this)}
+          ref='personalInformation'
+          onChange={this.handleFormChange}
           label="Personal Information" >
-        <Separator/>
         <InputField
             ref='username'
-            label='Username'
             placeholder='Username'
             value={this.props.username}
+            iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
         <InputField
             ref='firstname'
-            label='First Name'
             placeholder='First Name'
             value={this.props.firstname}
+            iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
           />
 
         <InputField
             ref='lastname'
-            label='Last Name'
             placeholder='Last Name'
             value={this.props.lastname}
+            iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
           />
 
         <InputField
             ref='email'
-            label='Email'
+            iconLeft={<Icon name='email-outline' size={30} style={styles.icon}/>}
             placeholder='Email'
             value={this.props.email}
           />
+        <InputField
+            ref='bio'
+            iconLeft={<Icon name='information-outline' size={30} style={styles.icon}/>}
+            placeholder='Bio'
+            value={this.props.bio}
+          />
+        <Separator label="Private Information"/>
         </Form>
         <Button
-          title="save"
+          title="Done"
           onPress={() => this.handleOnSave()}
         ></Button>
       </View>
@@ -101,7 +117,7 @@ class Settings extends Component {
     console.log(result);
 
     if (!result.cancelled) {
-      this.setState({ image: result.uri });
+      this.setState({ photo: result.uri });
     }
   };
 };
@@ -117,10 +133,13 @@ const styles = StyleSheet.create({
     borderRadius: 50, 
     width: 100,
     alignItems: 'center',
+    backgroundColor: '#C0C0C0'
   },
-  form: {
-    // flex: 1
+  icon: {
+    marginTop: 7, 
+    marginLeft: 4,
+    color:'gray'
   }
 });
 
-export default connect(mapStateToProps, { setUserInfo })(Settings);
+export default connect(mapStateToProps, { setUserInfo, setUserPhoto })(Settings);
