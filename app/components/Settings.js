@@ -7,10 +7,7 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Form, Separator, InputField, LinkField, SwitchField, PickerField
-} from 'react-native-form-generator';
-import { connect } from 'react-redux'
-import { setUserInfo } from '../Actions/Profile/ProfileAction'
+import * as firebase from 'firebase'
 
 const mapStateToProps = (state) => {
   return {
@@ -20,7 +17,7 @@ const mapStateToProps = (state) => {
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
     bio: state.PhotoReducer.bio,
-
+    uid: state.ProfileReducer.uid
   }}
 
 
@@ -52,11 +49,17 @@ class Settings extends Component {
       })
     }
     this.props.setUserPhoto(this.state.photo)
+    this.props.setUserInfo(this.state.formData)
+
+    firebase.database().ref(`users/${this.props.uid}`).set({
+      username: this.state.formData.username || this.props.username,
+      firstname: this.state.formData.firstname || this.props.firstname,
+      lastname: this.state.formData.lastname || this.props.lastname,
+      email: this.state.formData.email || this.props.email,
+      uid: this.state.formData.uid || this.props.uid
+    })
   }
 
-  handleOnSave() {
-    this.props.setUserInfo(this.state.formData)
-  }
 
   render() {
     let { photo } = this.state;    
