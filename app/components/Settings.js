@@ -7,6 +7,10 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Form, Separator, InputField, LinkField, SwitchField, PickerField
+} from 'react-native-form-generator';
+import { connect } from 'react-redux'
+import { setUserInfo } from '../Actions/Profile/ProfileAction'
 
 const mapStateToProps = (state) => {
   return {
@@ -18,7 +22,7 @@ const mapStateToProps = (state) => {
     bio: state.PhotoReducer.bio,
 
   }}
-  
+
 
 class Settings extends Component {
   static navigationOptions = {
@@ -37,6 +41,7 @@ class Settings extends Component {
   
   handleFormChange(formData){
     this.state.formData= formData
+
   }
   
   handleOnSave() {
@@ -47,6 +52,10 @@ class Settings extends Component {
       })
     }
     this.props.setUserPhoto(this.state.photo)
+  }
+
+  handleOnSave() {
+    this.props.setUserInfo(this.state.formData)
   }
 
   render() {
@@ -66,26 +75,30 @@ class Settings extends Component {
           ref='personalInformation'
           onChange={this.handleFormChange}
           label="Personal Information" >
+
         <InputField
             ref='username'
             placeholder='Username'
             value={this.props.username}
             iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
-        <InputField
+
+     
+         <InputField
             ref='firstname'
+            label='First Name'
             placeholder='First Name'
             value={this.props.firstname}
             iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
           />
-
+        
         <InputField
             ref='lastname'
+            label='Last Name'
             placeholder='Last Name'
             value={this.props.lastname}
             iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
           />
-
         <InputField
             ref='email'
             iconLeft={<Icon name='email-outline' size={30} style={styles.icon}/>}
@@ -104,6 +117,7 @@ class Settings extends Component {
           title="Done"
           onPress={() => this.handleOnSave()}
         ></Button>
+        
       </View>
     );
   }

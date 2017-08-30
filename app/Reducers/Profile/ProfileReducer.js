@@ -13,6 +13,7 @@ export const ProfileReducer = (state={
         lastname: action.payload.lastname || state.lastname,
         email: action.payload.email || state.email,
         bio: action.payload.bio || state.bio,
+
       })
     }
     default: {
