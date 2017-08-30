@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import { firebaseRef } from '../services/firebase'
 import firebase from 'firebase'
-import { fbAppId } from '../config'
 import { fbAppId } from '../../config'
 import { connect } from 'react-redux'
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
@@ -122,27 +121,6 @@ const styles = StyleSheet.create({
    paddingTop: 20
  }
 });
-  container: {
-    alignItems: 'center',
-    marginTop: '20%',
-  }, 
-  title: {
-    fontWeight: 'bold'
-  },
-  inputFields: {
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 20,
-    width: '50%',
-    marginTop: 20,
-    marginLeft: '20%'
-  },
-  credentials: {
-    paddingTop: 20
-  }
-});
 
 
 export default connect(null, { setUserInfo })(Login);
-

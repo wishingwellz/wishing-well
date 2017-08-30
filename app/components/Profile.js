@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux'
 import AddCard from './UserAuth/AddCard.js'
 
 import { connect } from 'react-redux'
-import NavigationBar from 'react-native-navbar'
 
 const mapStateToProps = (state) => {
   return {
@@ -24,20 +23,27 @@ const rightButtonConfig = {
   tintColor: 'black'
 }
 
+const leftButtonConfig = {
+  title: 'Add Card',
+  handler() {
+    Actions.AddCard()
+  },
+  tintColor: 'black'
+}
+
 
 class Profile extends Component {
 
   render() {
     return (
       <View >
-        <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff'/>
+        <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff' leftButton={leftButtonConfig}/>
           <View style={styles.body}>
             <Text>Username: {this.props.username}</Text>
             <Text>First Name: {this.props.firstname}</Text>
             <Text>Last Name: {this.props.lastname}</Text>
             <Text>Email: {this.props.email}</Text>
           </View>
-          <Button title="AddCard" onPress={() => Actions.AddCard()}>Add a Credit Card</Button>
         </View>
     )
   }

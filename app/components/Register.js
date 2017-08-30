@@ -32,7 +32,7 @@ export default class Register extends Component {
         console.log(err.code)
         console.log(err.message)
       })
-      const username = this.state.email.substring(0, this.state.email.length - 10)
+      const username = this.state.email.substring(0, this.state.email.indexOf('@'))
       const userTable = db.ref('users/' + username)
       userTable.set({
         username: this.state.email
