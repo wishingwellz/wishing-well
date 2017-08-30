@@ -3,7 +3,8 @@ export const ProfileReducer = (state={
   firstname: '',
   lastname: '',
   email: '',
-  bio: ''
+  bio: '',
+  uid: ''
 }, action) => {
   switch(action.type) {
     case 'SET_USERINFO': {
@@ -13,7 +14,7 @@ export const ProfileReducer = (state={
         lastname: action.payload.lastname || state.lastname,
         email: action.payload.email || state.email,
         bio: action.payload.bio || state.bio,
-
+        uid: action.payload.uid || state.uid
       })
     }
     default: {
