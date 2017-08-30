@@ -143,7 +143,30 @@ const styles = StyleSheet.create({
  },
  credentials: {
    paddingTop: 20
+<<<<<<< HEAD
  }
+=======
+ },
+  container: {
+    alignItems: 'center',
+    marginTop: '20%',
+  },
+  title: {
+    fontWeight: 'bold'
+  },
+  inputFields: {
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 20,
+    width: '50%',
+    marginTop: 20,
+    marginLeft: '20%'
+  },
+  credentials: {
+    paddingTop: 20
+  }
+>>>>>>> Joe's minor pull incoming
 });
 
 
