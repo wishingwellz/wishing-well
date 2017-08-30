@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
-import { View, Text, Button, StyleSheet, TouchableHighlight } from 'react-native'
-import NavigationBar from 'react-native-navbar'
+import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import AddCard from './UserAuth/AddCard.js'
-
 import { connect } from 'react-redux'
+import NavigationBar from 'react-native-navbar'
+
 
 const mapStateToProps = (state) => {
   return {
     username: state.ProfileReducer.username,
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
-    email: state.ProfileReducer.email
+    email: state.ProfileReducer.email,
+    photo: state.PhotoReducer.photo,
+    bio: state.PhotoReducer.bio
   }
 }
 
@@ -31,29 +32,55 @@ const leftButtonConfig = {
   tintColor: 'black'
 }
 
-
 class Profile extends Component {
 
   render() {
     return (
-      <View >
-        <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff' leftButton={leftButtonConfig}/>
-          <View style={styles.body}>
-            <Text>Username: {this.props.username}</Text>
-            <Text>First Name: {this.props.firstname}</Text>
-            <Text>Last Name: {this.props.lastname}</Text>
-            <Text>Email: {this.props.email}</Text>
+      <View style={styles.body}>
+          <View>
+            <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff' leftButton={leftButtonConfig}/>
           </View>
+          <View style={styles.imageView} >
+            <Image source={{ uri: this.props.photo }} style={styles.image}/>
+          </View>
+        <View style={styles.text}>
+          <Text>@{this.props.username}</Text>
+          <Text>{this.props.firstname}</Text>
+          <Text>{this.props.lastname}</Text>
+          <Text>Email: {this.props.email}</Text>
+          <Text>Bio: {this.props.bio}</Text>
         </View>
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+
+  text: {
+    top: 50,
+  },
   body: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    // backgroundColor: '#FFFFFF',    
+  },
+  body: {
+    // backgroundColor: '#FFFFFF',
+  },
+  image: { 
+    top: 28,
+    height: 100, 
+    borderRadius: 50, 
+    width: 100,
+    backgroundColor: '#C0C0C0',
+  },
+  imageView: {
+    marginLeft: 15,
+    // backgroundColor: '#FFFFFF',
+    
   }
 })
+
 
 export default connect(mapStateToProps)(Profile)
