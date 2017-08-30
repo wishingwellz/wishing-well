@@ -13,6 +13,8 @@ import Expo from 'expo'
 import { firebaseRef } from '../services/firebase'
 import firebase from 'firebase'
 import { fbAppId } from '../config'
+import { fbAppId } from '../../config'
+import { connect } from 'react-redux'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
@@ -23,6 +25,23 @@ export default class Login extends Component {
    this.state = {
      email: '',
      password: '',
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserEmail(userinfo) {
+      dispatch({
+        type: 'EMAIL',
+				payload: userinfo
+			})
+		}
+	}
+}
+
+class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: ''
     }
     this._login = this._login.bind(this)
     this._loginWithFacebook = this._loginWithFacebook.bind(this)
@@ -116,3 +135,25 @@ const styles = StyleSheet.create({
    paddingTop: 20
  }
 });
+  container: {
+    alignItems: 'center',
+    marginTop: '20%',
+  }, 
+  title: {
+    fontWeight: 'bold'
+  },
+  inputFields: {
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 20,
+    width: '50%',
+    marginTop: 20,
+    marginLeft: '20%'
+  },
+  credentials: {
+    paddingTop: 20
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Login);

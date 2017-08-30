@@ -8,6 +8,8 @@ import {
   Button
 } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 import Login from './app/components/Login'
 import Landing from './app/components/LandingPage'
 import LogHistory from './app/components/LogHistory'
@@ -21,7 +23,13 @@ import AddCard from './app/components/UserAuth/AddCard'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import Register from './app/components/Register'
+import reducers from './app/Reducers/index'
+
 // should use store here (redux)
+
+
+const store = createStore(reducers)
+
 
 class TabIcon extends Component {
   render() {
@@ -36,8 +44,10 @@ class TabIcon extends Component {
 }
 
 export default class WishingWell extends Component {
+    
   render() {
     return (
+    <Provider store={store}>      
       <Router>
         <Scene key="root" >
           <Scene key="Login" component={Login} initial hideNavBar/>
@@ -53,6 +63,7 @@ export default class WishingWell extends Component {
             <Scene key="AddCard" component={AddCard} title="AddCard"/>
         </Scene>
       </Router>
+    </Provider>
     );
   }
 }

@@ -4,3 +4,4 @@ npm-debug.*
 .env
 realm-object-server
 config.js
+package-lock.json

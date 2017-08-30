@@ -68,7 +68,9 @@ class Settings extends Component {
             placeholder='Email'
           />
         {console.log(this.state)}
-        <Button>Save</Button>
+        <Button
+          title="save"
+        >Save</Button>
       </View>
     );
   }
