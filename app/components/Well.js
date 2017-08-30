@@ -11,6 +11,7 @@ const THREEView = Expo.createTHREEViewClass(THREE);
 
 const db = firebase.database()
 
+
 export default class Well extends Component {
 
   constructor(props) {
@@ -27,7 +28,7 @@ export default class Well extends Component {
   componentWillUnmount() {
     timer.clearTimeout(this);
   }
-
+  
   componentWillMount() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xE9E9E9)
@@ -66,7 +67,8 @@ export default class Well extends Component {
 
 
     //we can use usernmae for ref so each username gets its individual log
-    const ref = db.ref('logs')
+    
+    const ref = db.ref(userEmail)
 
     ref.push({
       amount: this.state.amount,

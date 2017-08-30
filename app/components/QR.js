@@ -6,7 +6,7 @@ export default class QR extends Component {
   constructor() {
     super()
     this.state = {
-      text: 'austen so dumb lolololol'
+      text: '1Fyvqr8BZ56Z8TuedhLbMDnJz7VyG9p8zm'
     }
   }
 

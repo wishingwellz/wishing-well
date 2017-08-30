@@ -15,26 +15,11 @@ import firebase from 'firebase'
 import { fbAppId } from '../config'
 import { fbAppId } from '../../config'
 import { connect } from 'react-redux'
+import { setUserInfo } from '../Actions/Profile/ProfileAction'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
-export default class Login extends Component {
- constructor(props) {
-   super(props)
-   this.state = {
-     email: '',
-     password: '',
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUserEmail(userinfo) {
-      dispatch({
-        type: 'EMAIL',
-				payload: userinfo
-			})
-		}
-	}
-}
 
 class Login extends Component {
   constructor(props) {
@@ -51,7 +36,9 @@ class Login extends Component {
     firebaseRef.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(data => {
       if (data) {
-        console.log(data)
+        this.props.setUserInfo({
+          email: data.email
+        })
         Actions.Home()
       }
     })
@@ -63,14 +50,14 @@ class Login extends Component {
 
 
   async _loginWithFacebook() {
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
+    const { type, token} = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
         permissions: ['public_profile', 'email'],
       });
 
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`);
+      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+      console.log(response)
       Actions.Home()
     }
   }
@@ -156,4 +143,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, mapDispatchToProps)(Login);
+
+export default connect(null, { setUserInfo })(Login);
+
