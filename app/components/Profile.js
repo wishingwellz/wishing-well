@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { View, Text, Button, StyleSheet, TouchableHighlight } from 'react-native'
+import NavigationBar from 'react-native-navbar'
 import { Actions } from 'react-native-router-flux'
+import AddCard from './UserAuth/AddCard.js'
+
 import { connect } from 'react-redux'
 import NavigationBar from 'react-native-navbar'
 
@@ -34,6 +37,7 @@ class Profile extends Component {
             <Text>Last Name: {this.props.lastname}</Text>
             <Text>Email: {this.props.email}</Text>
           </View>
+          <Button title="AddCard" onPress={() => Actions.AddCard()}>Add a Credit Card</Button>
         </View>
     )
   }

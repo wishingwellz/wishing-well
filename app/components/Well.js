@@ -3,11 +3,13 @@ import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import Expo from 'expo'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 import * as firebase from "firebase"
+import TimerMixin from 'react-timer-mixin'
+import reactMixin from 'react-mixin'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
-const db = firebase.database() 
+const db = firebase.database()
 
 
 export default class Well extends Component {
@@ -19,7 +21,12 @@ export default class Well extends Component {
       description: '',
       coinSpeed: 20,
     }
-    this.onSwipeUp = this.onSwipeUp.bind(this)
+    this.onSwipeUp = this.onSwipeUp.bind(this);
+    this.slowDown = this.slowDown.bind(this)
+  }
+
+  componentWillUnmount() {
+    timer.clearTimeout(this);
   }
   
   componentWillMount() {
@@ -36,14 +43,28 @@ export default class Well extends Component {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
   }
+
+  // componentDidMount() {
+  //   // timer.setInterval(this, 'slowDown', this.slowDown(), 500)
+  // }
+
+  componentDidMount() {
+      this.setInterval(
+        () => { this.slowDown() },
+        500
+      );
+    }
+
   tick = () => {
     this.mesh.rotation.x += 1 / this.state.coinSpeed;
     this.mesh.rotation.y += 2 / 60;
   }
 
   onSwipeUp(gestureState) {
-    (this.state.coinSpeed === 20) ? this.setState({coinSpeed: 2}) : this.setState({coinSpeed: 20})
-    
+    this.setState({
+      coinSpeed: 2
+    });
+
 
     //we can use usernmae for ref so each username gets its individual log
     
@@ -54,6 +75,16 @@ export default class Well extends Component {
       description: this.state.description
     })
 
+  }
+
+  slowDown() {
+    if (this.state.coinSpeed < 20) {
+      let newSpeed = this.state.coinSpeed + 0.75;
+      this.setState({coinSpeed: newSpeed})
+    }
+    // this.setState({coinSpeed: 20}, () => timer.setTimeout(
+    //   this, 'slowSpeed', () => this.setState({coinSpeed: 2}), 5000
+    // ));
   }
 
 
@@ -93,6 +124,8 @@ export default class Well extends Component {
     )
   }
 }
+
+reactMixin(Well.prototype, TimerMixin);
 
 const styles = StyleSheet.create({
   body: {
