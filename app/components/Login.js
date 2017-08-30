@@ -143,9 +143,6 @@ const styles = StyleSheet.create({
  },
  credentials: {
    paddingTop: 20
-<<<<<<< HEAD
- }
-=======
  },
   container: {
     alignItems: 'center',
@@ -166,7 +163,6 @@ const styles = StyleSheet.create({
   credentials: {
     paddingTop: 20
   }
->>>>>>> Joe's minor pull incoming
 });
 
 

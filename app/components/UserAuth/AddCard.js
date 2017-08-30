@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
-var stripe = require('stripe-client')('pk_test_BdMP2UsKn1fFN5z8zn1wcEhs');
+import * as firebase from 'firebase';
+import { connect } from 'react-redux';
+import { client } from '../../Coinbase/index.js';
 
-var information = {
-  card: {
-    number: '4242424242424242',
-    exp_month: '02',
-    exp_year: '21',
-    cvc: '999',
-    name: 'Billy Joe'
+const db = firebase.database()
+
+const mapStateToProps = (state) => {
+  return {
+    username: state.ProfileReducer.username,
+    firstname: state.ProfileReducer.firstname,
+    lastname: state.ProfileReducer.lastname,
+    email: state.ProfileReducer.email
   }
 }
 
-export default class AddCard extends Component {
+class AddCard extends Component {
 
   constructor(props) {
     super(props);
@@ -21,25 +24,16 @@ export default class AddCard extends Component {
       expiration: '',
       cvc: '',
     }
-    this.addACard = this.addACard.bind(this)
+    this.addAWallet = this.addAWallet.bind(this)
   }
 
-  addACard() {
-    stripe.createToken({
-      card: {
-        "number": '4242424242424242',
-        "exp_month": 12,
-        "exp_year": 2018,
-        "cvc": '123'
-      }
-    });
-    Alert.alert('Added a Card!')
-  }
-
-  async onPayment() {
-    var card = await stripe.createToken(information);
-    var token = card.id;
-    Alert.alert(token)
+  addAWallet() {
+    let userEmail = this.props.email;
+    console.log(client)
+    // const usersTable = db.ref('users/regular/321')
+    // usersTable.set({
+    //   wallet: '111223345',
+    // })
   }
 
   render() {
@@ -58,7 +52,8 @@ export default class AddCard extends Component {
             <Text style={styles.credential}>CVC</Text>
           </View>
           <TextInput style={styles.cvcInputField} placeholder='CVC' onChangeText={(text) => this.setState({cvc: text})} value={this.state.cvc} maxLength={3}/>
-          <Button title="AddACard" onPress={() => this.addACard()}>Add a Card</Button>
+          <Button title="AddACard" onPress={() => {}}>Add a Card</Button>
+          <Button title="AddAWallet" onPress={() => this.addAWallet()}>Add a Wallet</Button>
         </View>
       </View>
     )
@@ -106,3 +101,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+export default connect(mapStateToProps)(AddCard)
