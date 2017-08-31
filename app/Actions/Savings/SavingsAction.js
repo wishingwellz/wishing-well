@@ -1,6 +1,8 @@
-export const savings = (entry) => {
+export const SAVE_MONEY = 'SAVE_MONEY'
+
+export const setSavings = (entry) => {
   return {
-    type: 'SAVE_MONEY',
+    type: SAVE_MONEY,
     payload: entry
   }
 }
