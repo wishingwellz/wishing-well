@@ -16,6 +16,9 @@ import { fbAppId } from '../../config'
 import { connect } from 'react-redux'
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
 
+
+var client = require('coinbase').Client
+
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
