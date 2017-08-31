@@ -13,20 +13,38 @@ import * as firebase from 'firebase'
 import NavigationBar from 'react-native-navbar'
 import { connect } from 'react-redux'
 import { setSavings } from '../Actions/Savings/SavingsAction'
+import { setUserInfo } from '../Actions/Profile/ProfileAction'
+import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 
 const mapStateToProps = (state) => {
   return {
     uid: state.ProfileReducer.uid,
-    logs: state.SavingsReducer.entries
+    logs: state.SavingsReducer.entries,
+    username: state.ProfileReducer.username,
+    firstname: state.ProfileReducer.firstname,
+    lastname: state.ProfileReducer.lastname,
+    email: state.ProfileReducer.email,
+    bio: state.ProfileReducer.bio,
+    photo: state.PhotoReducer.photo
   }
 }
 
 class LandingPage extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     firebase.database().ref(`users/${this.props.uid}`).once('value').then(data => {
       let logs = Object.values(data.val().logs)
+      let { username, firstname, lastname, email, photo, bio } = data.val()
+      this.props.setUserInfo({
+        username,
+        firstname,
+        lastname,
+        email,
+        bio
+      })
+      console.log('this is the user', data.val())
       this.props.setSavings(logs)
+      this.props.setUserPhoto(photo)
     })
   }
   
@@ -59,4 +77,4 @@ const styles = StyleSheet.create({
   // }
 })
 
-export default connect(mapStateToProps, { setSavings })(LandingPage)
+export default connect(mapStateToProps, { setSavings, setUserInfo, setUserPhoto })(LandingPage)
