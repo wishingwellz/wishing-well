@@ -11,14 +11,17 @@ import Register from './Register'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Expo from 'expo'
 import { firebaseRef } from '../services/firebase'
-import firebase from 'firebase'
+import * as firebase from 'firebase'
 import { fbAppId } from '../../config'
 import { connect } from 'react-redux'
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
 
+//testing 
+var client = require('coinbase').Client
+
+let dog = 'mydog'
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
-
 
 class Login extends Component {
   constructor(props) {
@@ -35,8 +38,14 @@ class Login extends Component {
     firebaseRef.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then(data => {
       if (data) {
+        const uid = data.uid.substring(0, 10)
+        firebase.database().ref('users/' + uid).update({
+          username: this.state.email
+        })
+        
         this.props.setUserInfo({
-          email: data.email
+          email: data.email,
+          uid: uid
         })
         Actions.Home()
       }
@@ -49,14 +58,32 @@ class Login extends Component {
 
 
   async _loginWithFacebook() {
-    const { type, token} = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
+    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(fbAppId, {
         permissions: ['public_profile', 'email'],
       });
 
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
-      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-      console.log(response)
+      
+      fetch(`https://graph.facebook.com/me?access_token=${token}`)
+      .then(response => {
+        let res = JSON.parse(response._bodyText)
+
+        // adding user to firebase db
+        firebase.database().ref('users/' + res.id.substring(0, 10)).update({
+          name: res.name
+        })
+        let name = res.name.split(' ')
+        let firstname = name[0]
+        let lastname = name[name.length - 1]
+        //adding userInfo to the store
+        this.props.setUserInfo({
+          firstname,
+          lastname,
+          uid: res.id
+        })
+      }).catch(err => console.error(err))
+
       Actions.Home()
     }
   }

@@ -21,7 +21,7 @@ export default class Register extends Component {
     this.state = {
       email: '',
       password: '',
-      reEnter: ''
+      reEnter: ''   
     }
     this._registerAccount = this._registerAccount.bind(this)
   }
@@ -32,11 +32,7 @@ export default class Register extends Component {
         console.log(err.code)
         console.log(err.message)
       })
-      const username = this.state.email.substring(0, this.state.email.indexOf('@'))
-      const userTable = db.ref('users/' + username)
-      userTable.set({
-        username: this.state.email
-      })
+      
       Actions.Login()
     } else {
       alert('There is something wrong with your credentials!')
