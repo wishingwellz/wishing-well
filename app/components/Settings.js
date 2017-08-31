@@ -7,7 +7,10 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+<<<<<<< HEAD
 import * as firebase from 'firebase'
+=======
+>>>>>>> updated settings page
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
@@ -19,7 +22,10 @@ const mapStateToProps = (state) => {
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
     bio: state.ProfileReducer.bio,
+<<<<<<< HEAD
     uid: state.ProfileReducer.uid
+=======
+>>>>>>> updated settings page
   }}
 
 
