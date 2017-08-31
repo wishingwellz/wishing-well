@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-import { client } from '../../Coinbase/index.js';
+import axios from 'axios';
 
 const db = firebase.database()
 
@@ -29,11 +29,7 @@ class AddCard extends Component {
 
   addAWallet() {
     let userEmail = this.props.email;
-    console.log(client)
-    // const usersTable = db.ref('users/regular/321')
-    // usersTable.set({
-    //   wallet: '111223345',
-    // })
+    axios.post('http://localhost:4000/api/addAWallet', {email: userEmail})
   }
 
   render() {

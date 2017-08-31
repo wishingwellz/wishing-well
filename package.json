@@ -9,8 +9,10 @@
     "start": "node ./server/server.js"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-preset-expo": "^3.0.0",
     "body-parser": "^1.17.2",
+    "coinbase": "^2.0.6",
     "crypto": "^1.0.1",
     "dotenv": "^4.0.0",
     "expo": "^17.0.0",
