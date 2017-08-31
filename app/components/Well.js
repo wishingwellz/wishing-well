@@ -5,14 +5,19 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 import * as firebase from "firebase"
 import TimerMixin from 'react-timer-mixin'
 import reactMixin from 'react-mixin'
+import { connect } from 'react-redux'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
 const db = firebase.database()
 
-
-export default class Well extends Component {
+const mapStateToProps = state => {
+  return {
+    uid: state.ProfileReducer.uid
+  }
+}
+class Well extends Component {
 
   constructor(props) {
     super(props);
@@ -68,7 +73,7 @@ export default class Well extends Component {
 
     //we can use usernmae for ref so each username gets its individual log
     
-    const ref = db.ref(userEmail)
+    const ref = db.ref(`users/${this.props.uid}/logs`)
 
     ref.push({
       amount: this.state.amount,
@@ -164,3 +169,5 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   }
 })
+
+export default connect(mapStateToProps)(Well)
