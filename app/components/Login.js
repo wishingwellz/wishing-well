@@ -19,6 +19,7 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 //testing 
 var client = require('coinbase').Client
 
+let dog = 'mydog'
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
 
