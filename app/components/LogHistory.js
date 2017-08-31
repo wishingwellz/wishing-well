@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   amount: {
     textAlign: 'right', 
     alignSelf: 'stretch',
-    top: 50
+    // top: 50
   }
 })
 

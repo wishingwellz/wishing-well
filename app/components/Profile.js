@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   icon:{
-    marginLeft: 15
+    marginLeft: 30
   }
 })
 
