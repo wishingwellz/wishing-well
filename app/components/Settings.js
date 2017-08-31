@@ -50,13 +50,7 @@ class Settings extends Component {
     } else {
       this.props.setUserPhoto(this.state.photo)
     }
-<<<<<<< HEAD
-    this.props.setUserPhoto(this.state.photo)
-  
-=======
-
     
->>>>>>> saves and retrieves profile photo to and from DB
     //updates db 
     firebase.database().ref(`users/${this.props.uid}`).update({
       username: this.state.formData.username || this.props.username,
@@ -68,19 +62,16 @@ class Settings extends Component {
       photo: this.state.photo || this.props.photo
     })
   }
-<<<<<<< HEAD
 
   handleOnSave() {
     this.props.setUserInfo(this.state.formData)
   }
 
-=======
   
   componentDidMount(){
   }
   
   
->>>>>>> saves and retrieves profile photo to and from DB
   render() {
     let { photo } = this.state;
     return (
@@ -107,10 +98,6 @@ class Settings extends Component {
             iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
 
-<<<<<<< HEAD
-
-=======
->>>>>>> saves and retrieves profile photo to and from DB
          <InputField
             ref='firstname'
             placeholder='First Name'
