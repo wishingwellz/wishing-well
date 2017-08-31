@@ -20,6 +20,7 @@
     "firebase": "^4.3.0",
     "lottie-react-native": "^2.2.0",
     "path": "^0.12.7",
+    "paypal-rest-sdk": "^1.7.1",
     "react": "16.0.0-alpha.6",
     "react-mixin": "^3.1.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
