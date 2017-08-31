@@ -40,13 +40,12 @@ class Profile extends Component {
           <View>
             <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff' leftButton={leftButtonConfig}/>
           </View>
-          <View style={styles.imageView} >
-            <Image source={{ uri: this.props.photo }} style={styles.image}/>
-          </View>
         <View style={styles.text}>
-          <Text>{this.props.firstname}</Text>
-          <Text>{this.props.lastname}</Text>
-          <Text>@{this.props.username}</Text>
+          <Text style={styles.name}>
+            <Image source={{ uri: this.props.photo }} style={styles.image}/>
+            {this.props.firstname} {this.props.lastname}
+          </Text>
+          {this.props.username? <Text style={styles.username}>@{this.props.username}</Text> : null}
           <Text>Email: {this.props.email}</Text>
           <Text>Bio: {this.props.bio}</Text>
         </View>
@@ -58,15 +57,13 @@ class Profile extends Component {
 const styles = StyleSheet.create({
 
   text: {
-    top: 50,
+    top: 35,
   },
   body: {
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#FFFFFF',    
   },
   body: {
-    // backgroundColor: '#FFFFFF',
   },
   image: { 
     top: 28,
@@ -75,10 +72,13 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: '#C0C0C0',
   },
-  imageView: {
+  name: {
+    fontSize: 30,
+    fontWeight: 'bold',
     marginLeft: 15,
-    // backgroundColor: '#FFFFFF',
-    
+  },
+  username: {
+    color: 'gray'
   }
 })
 
