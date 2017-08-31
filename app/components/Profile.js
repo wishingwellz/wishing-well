@@ -44,9 +44,9 @@ class Profile extends Component {
             <Image source={{ uri: this.props.photo }} style={styles.image}/>
           </View>
         <View style={styles.text}>
-          <Text>@{this.props.username}</Text>
           <Text>{this.props.firstname}</Text>
           <Text>{this.props.lastname}</Text>
+          <Text>@{this.props.username}</Text>
           <Text>Email: {this.props.email}</Text>
           <Text>Bio: {this.props.bio}</Text>
         </View>

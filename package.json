@@ -26,6 +26,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-17.0.0.tar.gz",
     "react-native-form-generator": "^0.9.9",
     "react-native-gifted-form": "^0.1.0",
+    "react-native-keyboard-aware-scroll-view": "^0.3.0",
     "react-native-navbar": "^2.0.1",
     "react-native-payments": "^0.2.0",
     "react-native-qrcode": "^0.2.6",
