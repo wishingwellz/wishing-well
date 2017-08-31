@@ -4,7 +4,8 @@ export const ProfileReducer = (state={
   lastname: '',
   email: '',
   bio: '',
-  uid: ''
+  uid: '',
+  qr: ''
 }, action) => {
   switch(action.type) {
     case 'SET_USERINFO': {
@@ -14,7 +15,8 @@ export const ProfileReducer = (state={
         lastname: action.payload.lastname || state.lastname,
         email: action.payload.email || state.email,
         bio: action.payload.bio || state.bio,
-        uid: action.payload.uid || state.uid
+        uid: action.payload.uid || state.uid,
+        qr: action.payload.qr || state.qr
       })
     }
     default: {

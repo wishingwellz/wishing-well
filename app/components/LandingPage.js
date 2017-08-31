@@ -8,10 +8,30 @@ import {
   ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
+import * as firebase from 'firebase'
+import { connect } from 'react-redux'
+import { setUserInfo } from '../Actions/Profile/ProfileAction.js'
 
+const mapStateToProps = state => {
+  return {
+    uid: state.ProfileReducer.uid,
+    qr: state.ProfileReducer.qr
+  }
+}
 
-export default class LandingPage extends Component {
-  
+class LandingPage extends Component {
+  componentWillMount() {
+
+    firebase.database().ref(`users/${this.props.uid}`).once('value').then(data => {
+      let qr = data.val().wallet
+
+      this.props.setUserInfo({
+        qr
+      })
+    })
+
+  }
+
   render() {
     return (
       <View style={styles.body}>
@@ -38,7 +58,7 @@ export default class LandingPage extends Component {
             <Text>scrollable well</Text>
             <Text>scrollable well</Text>
             <Text>scrollable well</Text>
-            
+
         </ScrollView>
       </View>
     )
@@ -52,3 +72,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+export default connect(mapStateToProps, { setUserInfo })(LandingPage)

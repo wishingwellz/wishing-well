@@ -1,20 +1,24 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import QRCode from 'react-native-qrcode'
+import { connect } from 'react-redux'
 
-export default class QR extends Component {
-  constructor() {
-    super()
-    this.state = {
-      text: '1Fyvqr8BZ56Z8TuedhLbMDnJz7VyG9p8zm'
-    }
+const mapStateToProps = state => {
+  return {
+    qr: state.ProfileReducer.qr
   }
+}
 
+class QR extends Component {
+  componentWillMount() {
+    console.log('qr',this.props.qr)
+  }
   render() {
+
     return (
       <View style={styles.body}>
         <Text>This is your QR code</Text>
-        <QRCode value={this.state.text} size={200} />
+        <QRCode value={this.props.qr} size={200} />
       </View>
     )
   }
@@ -27,3 +31,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 })
+
+export default connect(mapStateToProps)(QR)

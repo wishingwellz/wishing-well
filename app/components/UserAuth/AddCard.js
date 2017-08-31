@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { setUserInfo } from '../../Actions/Profile/ProfileAction.js'
 
 const db = firebase.database()
 
@@ -11,7 +12,8 @@ const mapStateToProps = (state) => {
     username: state.ProfileReducer.username,
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
-    email: state.ProfileReducer.email
+    email: state.ProfileReducer.email,
+    uid: state.ProfileReducer.uid
   }
 }
 
@@ -24,12 +26,26 @@ class AddCard extends Component {
       expiration: '',
       cvc: '',
     }
-    this.addAWallet = this.addAWallet.bind(this)
+    this.addAWallet = this.addAWallet.bind(this);
+    this.addACard = this.addACard.bind(this);
   }
 
   addAWallet() {
-    let userEmail = this.props.email;
-    axios.post('http://localhost:4000/api/addAWallet', {email: userEmail})
+    let userUID = this.props.uid;
+    db.ref('users/' + userUID).once('value')
+    .then(data => {
+      if (!data.val().wallet) {
+        axios.post('http://localhost:4000/api/addAWallet', {UID: userUID})
+        .then(({ data }) => {
+          db.ref('users/' + userUID).set({
+            wallet: data,
+          })
+          this.props.setUserInfo({
+            qr: data
+          })
+        })
+      }
+    })
   }
 
   render() {
@@ -48,8 +64,8 @@ class AddCard extends Component {
             <Text style={styles.credential}>CVC</Text>
           </View>
           <TextInput style={styles.cvcInputField} placeholder='CVC' onChangeText={(text) => this.setState({cvc: text})} value={this.state.cvc} maxLength={3}/>
-          <Button title="AddACard" onPress={() => {}}>Add a Card</Button>
-          <Button title="AddAWallet" onPress={() => this.addAWallet()}>Add a Wallet</Button>
+          <Button title="AddACard" onPress={this.addACard}>Add a Card</Button>
+          <Button title="AddAWallet" onPress={this.addAWalle}>Add a Wallet</Button>
         </View>
       </View>
     )
@@ -98,4 +114,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps)(AddCard)
+export default connect(mapStateToProps, { setUserInfo })(AddCard)
