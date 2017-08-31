@@ -1,5 +1,6 @@
-const Client = require('coinbase').Client;
-const coinbaseKeys = require('../../config')
+var Client = require('coinbase').Client;
+
+var coinbaseKeys = require('../../config')
 
 let client = new Client({
   'apiKey': coinbaseKeys.APIKey,

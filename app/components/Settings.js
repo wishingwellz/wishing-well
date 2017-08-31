@@ -7,7 +7,10 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+<<<<<<< HEAD
 import * as firebase from 'firebase'
+=======
+>>>>>>> Checking out earlier branch
 
 const mapStateToProps = (state) => {
   return {
@@ -31,16 +34,16 @@ class Settings extends Component {
       photo: null,
       formData: {}
     }
-    
+
     this.handleOnSave = this.handleOnSave.bind(this)
     this.handleFormChange = this.handleFormChange.bind(this)
   }
-  
+
   handleFormChange(formData){
     this.state.formData= formData
 
   }
-  
+
   handleOnSave() {
     this.props.setUserInfo(this.state.formData)
     if (this.state.photo === null && this.props.photo) {
@@ -64,7 +67,7 @@ class Settings extends Component {
 
 
   render() {
-    let { photo } = this.state;    
+    let { photo } = this.state;
     return (
       <View>
        <View style={styles.body}>
@@ -88,7 +91,7 @@ class Settings extends Component {
             iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
 
-     
+
          <InputField
             ref='firstname'
             label='First Name'
@@ -96,7 +99,7 @@ class Settings extends Component {
             value={this.props.firstname}
             iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
           />
-        
+
         <InputField
             ref='lastname'
             label='Last Name'
@@ -122,7 +125,7 @@ class Settings extends Component {
           title="Done"
           onPress={() => this.handleOnSave()}
         ></Button>
-        
+
       </View>
     );
   }
@@ -147,15 +150,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  image: { 
-    height: 100, 
-    borderRadius: 50, 
+  image: {
+    height: 100,
+    borderRadius: 50,
     width: 100,
     alignItems: 'center',
     backgroundColor: '#C0C0C0'
   },
   icon: {
-    marginTop: 7, 
+    marginTop: 7,
     marginLeft: 4,
     color:'gray'
   }
