@@ -25,7 +25,7 @@ class LogHistory extends Component {
                 data={this.props.logs}
                 renderItem={({item}) => 
                   <View style={styles.list}>
-                    <Text>{item.description}</Text>
+                    <Text style={styles.description}>{item.description}</Text>
                     <Text style={styles.amount}>${item.amount}</Text>
                   </View>
                 }
@@ -47,13 +47,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: 'black',
     width: '100%',
-    height: 100
-    // marginBottom: 34
+    height: 70
+  },
+  description: {
+    fontSize: 20,
+    top: 5
   },
   amount: {
     textAlign: 'right', 
     alignSelf: 'stretch',
-    top: 40
+    top: 50
   }
 })
 

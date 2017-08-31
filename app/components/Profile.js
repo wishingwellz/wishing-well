@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   username: {
-    // color: 'gray',
     marginLeft: 15
   },
   icon:{

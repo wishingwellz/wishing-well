@@ -7,9 +7,9 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Actions } from 'react-native-router-flux'
 import * as firebase from 'firebase'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 const mapStateToProps = (state) => {
   return {
@@ -17,11 +17,10 @@ const mapStateToProps = (state) => {
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
-    photo: state.PhotoReducer.photo,
     bio: state.ProfileReducer.bio,
-    uid: state.ProfileReducer.uid
+    uid: state.ProfileReducer.uid,
+    photo: state.PhotoReducer.photo
   }}
-
 
 class Settings extends Component {
   static navigationOptions = {
@@ -40,7 +39,6 @@ class Settings extends Component {
 
   handleFormChange(formData){
     this.state.formData= formData
-
   }
 
   handleOnSave() {
@@ -52,22 +50,37 @@ class Settings extends Component {
     } else {
       this.props.setUserPhoto(this.state.photo)
     }
+<<<<<<< HEAD
     this.props.setUserPhoto(this.state.photo)
   
+=======
+
+    
+>>>>>>> saves and retrieves profile photo to and from DB
     //updates db 
     firebase.database().ref(`users/${this.props.uid}`).update({
       username: this.state.formData.username || this.props.username,
       firstname: this.state.formData.firstname || this.props.firstname,
       lastname: this.state.formData.lastname || this.props.lastname,
       email: this.state.formData.email || this.props.email,
-      uid: this.state.formData.uid || this.props.uid
+      uid: this.state.formData.uid || this.props.uid,
+      bio: this.state.formData.bio || this.props.bio,
+      photo: this.state.photo || this.props.photo
     })
   }
+<<<<<<< HEAD
 
   handleOnSave() {
     this.props.setUserInfo(this.state.formData)
   }
 
+=======
+  
+  componentDidMount(){
+  }
+  
+  
+>>>>>>> saves and retrieves profile photo to and from DB
   render() {
     let { photo } = this.state;
     return (
@@ -94,7 +107,10 @@ class Settings extends Component {
             iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> saves and retrieves profile photo to and from DB
          <InputField
             ref='firstname'
             placeholder='First Name'
@@ -137,8 +153,6 @@ class Settings extends Component {
       allowsEditing: true,
       aspect: [4, 3],
     });
-
-    console.log(result);
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
