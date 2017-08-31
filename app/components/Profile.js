@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import NavigationBar from 'react-native-navbar'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 const mapStateToProps = (state) => {
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
-    bio: state.PhotoReducer.bio
+    bio: state.ProfileReducer.bio
   }
 }
 
@@ -40,15 +41,16 @@ class Profile extends Component {
           <View>
             <NavigationBar title={{title:'Profile'}} rightButton={rightButtonConfig} tintColor='#99ccff' leftButton={leftButtonConfig}/>
           </View>
-          <View style={styles.imageView} >
-            <Image source={{ uri: this.props.photo }} style={styles.image}/>
-          </View>
         <View style={styles.text}>
-          <Text>@{this.props.username}</Text>
-          <Text>{this.props.firstname}</Text>
-          <Text>{this.props.lastname}</Text>
-          <Text>Email: {this.props.email}</Text>
-          <Text>Bio: {this.props.bio}</Text>
+          <Text style={styles.name}>
+            <Image source={{ uri: this.props.photo }} style={styles.image}/>
+            {this.props.firstname} {this.props.lastname}
+          </Text>
+          <Text>
+            <Icon name='account-circle' size={25} style={styles.icon}/> {this.props.username? <Text style={styles.username}>@{this.props.username}</Text> : null}
+          </Text>
+          <Text><Icon name='email-outline' size={25} style={styles.icon}/> {this.props.email}</Text>
+          <Text><Icon name='information-outline' size={25} style={styles.icon}/> {this.props.bio}</Text>
         </View>
       </View>
     )
@@ -58,15 +60,13 @@ class Profile extends Component {
 const styles = StyleSheet.create({
 
   text: {
-    top: 50,
+    top: 30,
   },
   body: {
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#FFFFFF',    
   },
   body: {
-    // backgroundColor: '#FFFFFF',
   },
   image: { 
     top: 28,
@@ -75,10 +75,16 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: '#C0C0C0',
   },
-  imageView: {
+  name: {
+    fontSize: 30,
+    fontWeight: 'bold',
     marginLeft: 15,
-    // backgroundColor: '#FFFFFF',
-    
+  },
+  username: {
+    marginLeft: 15
+  },
+  icon:{
+    marginLeft: 30
   }
 })
 

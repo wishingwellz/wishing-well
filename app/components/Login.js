@@ -36,9 +36,9 @@ class Login extends Component {
     .then(data => {
       if (data) {
         const uid = data.uid.substring(0, 10)
-        firebase.database().ref('users/' + uid).update({
-          username: this.state.email
-        })
+        // firebase.database().ref('users/' + uid).update({
+        //   username: this.state.email
+        // })
         
         this.props.setUserInfo({
           email: data.email,

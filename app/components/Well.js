@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import Expo from 'expo'
+import NavigationBar from 'react-native-navbar'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 import * as firebase from "firebase"
 import TimerMixin from 'react-timer-mixin'
@@ -76,6 +77,7 @@ class Well extends Component {
     const ref = db.ref(`users/${this.props.uid}/logs`)
 
     ref.push({
+      date: new Date(),
       amount: this.state.amount,
       description: this.state.description
     })
@@ -102,7 +104,10 @@ class Well extends Component {
     };
 
     return (
-      <View style={styles.body}>
+      <View>
+        <View>
+          <NavigationBar title={{title:'Wishing Well'}} tintColor='#99ccff'/>
+        </View>
         <View style={styles.inputFields}>
           <View style={{height: "20%"}}>
             <Text style={styles.credentials}>Input Amount</Text>
