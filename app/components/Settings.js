@@ -7,10 +7,6 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-<<<<<<< HEAD
-import * as firebase from 'firebase'
-=======
->>>>>>> Checking out earlier branch
 
 const mapStateToProps = (state) => {
   return {
@@ -20,8 +16,8 @@ const mapStateToProps = (state) => {
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
     bio: state.PhotoReducer.bio,
-    uid: state.ProfileReducer.uid
-  }}
+  }
+}
 
 
 class Settings extends Component {
@@ -52,19 +48,11 @@ class Settings extends Component {
       })
     }
     this.props.setUserPhoto(this.state.photo)
-    this.props.setUserInfo(this.state.formData)
-
-
-    //updates db 
-    firebase.database().ref(`users/${this.props.uid}`).update({
-      username: this.state.formData.username || this.props.username,
-      firstname: this.state.formData.firstname || this.props.firstname,
-      lastname: this.state.formData.lastname || this.props.lastname,
-      email: this.state.formData.email || this.props.email,
-      uid: this.state.formData.uid || this.props.uid
-    })
   }
 
+  handleOnSave() {
+    this.props.setUserInfo(this.state.formData)
+  }
 
   render() {
     let { photo } = this.state;
@@ -94,7 +82,6 @@ class Settings extends Component {
 
          <InputField
             ref='firstname'
-            label='First Name'
             placeholder='First Name'
             value={this.props.firstname}
             iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
@@ -102,7 +89,6 @@ class Settings extends Component {
 
         <InputField
             ref='lastname'
-            label='Last Name'
             placeholder='Last Name'
             value={this.props.lastname}
             iconLeft={<Icon name='account' size={30} style={styles.icon}/>}
