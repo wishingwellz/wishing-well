@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { connect } from 'react-redux'
 import NavigationBar from 'react-native-navbar'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
 const mapStateToProps = (state) => {
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
-    bio: state.PhotoReducer.bio
+    bio: state.ProfileReducer.bio
   }
 }
 
@@ -45,9 +46,11 @@ class Profile extends Component {
             <Image source={{ uri: this.props.photo }} style={styles.image}/>
             {this.props.firstname} {this.props.lastname}
           </Text>
-          {this.props.username? <Text style={styles.username}>@{this.props.username}</Text> : null}
-          <Text>Email: {this.props.email}</Text>
-          <Text>Bio: {this.props.bio}</Text>
+          <Text>
+            <Icon name='account-circle' size={25} style={styles.icon}/> {this.props.username? <Text style={styles.username}>@{this.props.username}</Text> : null}
+          </Text>
+          <Text><Icon name='email-outline' size={25} style={styles.icon}/> {this.props.email}</Text>
+          <Text><Icon name='information-outline' size={25} style={styles.icon}/> {this.props.bio}</Text>
         </View>
       </View>
     )
@@ -57,7 +60,7 @@ class Profile extends Component {
 const styles = StyleSheet.create({
 
   text: {
-    top: 35,
+    top: 30,
   },
   body: {
     justifyContent: 'center',
@@ -78,7 +81,8 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   username: {
-    color: 'gray'
+    color: 'gray',
+    marginLeft: 15
   }
 })
 
