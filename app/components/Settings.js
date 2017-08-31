@@ -51,7 +51,9 @@ class Settings extends Component {
     this.props.setUserPhoto(this.state.photo)
     this.props.setUserInfo(this.state.formData)
 
-    firebase.database().ref(`users/${this.props.uid}`).set({
+
+    //updates db 
+    firebase.database().ref(`users/${this.props.uid}`).update({
       username: this.state.formData.username || this.props.username,
       firstname: this.state.formData.firstname || this.props.firstname,
       lastname: this.state.formData.lastname || this.props.lastname,

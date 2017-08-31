@@ -69,7 +69,7 @@ class Login extends Component {
         let res = JSON.parse(response._bodyText)
 
         // adding user to firebase db
-        firebase.database().ref('users/' + res.id.substring(0, 10)).set({
+        firebase.database().ref('users/' + res.id.substring(0, 10)).update({
           name: res.name
         })
         let name = res.name.split(' ')
