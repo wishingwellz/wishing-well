@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
     photo: state.PhotoReducer.photo,
-    bio: state.PhotoReducer.bio,
+    bio: state.ProfileReducer.bio,
     uid: state.ProfileReducer.uid
   }
 }

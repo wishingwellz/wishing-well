@@ -25,7 +25,8 @@ const mapStateToProps = (state) => {
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
     bio: state.ProfileReducer.bio,
-    photo: state.PhotoReducer.photo
+    photo: state.PhotoReducer.photo,
+    qr: state.ProfileReducer.qr
   }
 }
 
@@ -34,13 +35,14 @@ class LandingPage extends Component {
   componentWillMount() {
     firebase.database().ref(`users/${this.props.uid}`).once('value').then(data => {
       let logs = Object.values(data.val().logs)
-      let { username, firstname, lastname, email, photo, bio } = data.val()
+      let { username, firstname, lastname, email, photo, bio, wallet } = data.val()
       this.props.setUserInfo({
         username,
         firstname,
         lastname,
         email,
-        bio
+        bio,
+        qr: wallet || 'no qr yet'
       })
       console.log('this is the user', data.val())
       this.props.setSavings(logs)
@@ -54,7 +56,6 @@ class LandingPage extends Component {
         <View>
           <NavigationBar title={{title:'My Wishing Well'}} tintColor='#99ccff'/>
         </View>
-<<<<<<< HEAD
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
@@ -63,23 +64,12 @@ class LandingPage extends Component {
           <Text>HERE IS A WELL</Text>
           <FlatList
             data={this.props.logs}
-            renderItem={({item}) => 
+            renderItem={({item}) =>
             <View>
               <Text style={styles.date}>{item.date}</Text>
               <Text style={styles.amount}>{item.amount}</Text>
-            </View>}       
+            </View>}
           />
-=======
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-
-          <FlatList
-            data={this.props.logs}
-            renderItem={({item}) => <Text>{item.amount}</Text>}
-        />
->>>>>>> Credit card form working
       </View>
     )
   }
