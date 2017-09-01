@@ -18,7 +18,7 @@ class LogHistory extends Component {
 
   componentWillMount(){
     db.ref(`users/${this.props.uid}/logs`).on('value', (snapshot) => {
-      this.props.setSavings(Object.values(snapshot.val()))
+      (snapshot.val()) ? this.props.setSavings(Object.values(snapshot.val())) : null;
     })
   }
 

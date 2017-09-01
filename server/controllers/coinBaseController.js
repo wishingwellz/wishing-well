@@ -17,5 +17,16 @@ module.exports = {
         });
       });
     })
+  },
+  buyCrypto: (req, res) => {
+    console.log('COINBASE PATH', req.body);
+    client.getAccounts({}, function(err, accounts) {
+      let targetAccount = accounts.filter(function(acct) {
+        return acct.name === req.body.uid;
+      })
+      // targetAccount[0].buy({'amount': '0.0003', 'currency': 'BTC'}, function(err, buy) {
+      //   console.log(buy);
+      // })
+    });
   }
 }

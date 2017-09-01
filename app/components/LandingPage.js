@@ -26,7 +26,9 @@ const mapStateToProps = (state) => {
     email: state.ProfileReducer.email,
     bio: state.ProfileReducer.bio,
     photo: state.PhotoReducer.photo,
-    qr: state.ProfileReducer.qr
+    qr: state.ProfileReducer.qr,
+    cardID: state.ProfileReducer.cardID,
+    total: state.ProfileReducer.total,
   }
 }
 
@@ -34,15 +36,18 @@ class LandingPage extends Component {
 
   componentWillMount() {
     firebase.database().ref(`users/${this.props.uid}`).once('value').then(data => {
-      let logs = Object.values(data.val().logs)
-      let { username, firstname, lastname, email, photo, bio, wallet } = data.val()
+      let logs = (data.val().logs) ? Object.values(data.val().logs) : [];
+      let { username, firstname, lastname, email, photo, bio, wallet, cardID, total } = data.val()
       this.props.setUserInfo({
         username,
         firstname,
         lastname,
         email,
         bio,
-        qr: wallet || 'no qr yet'
+        qr: wallet,
+        cardID,
+        photo,
+        total
       })
       console.log('this is the user', data.val())
       this.props.setSavings(logs)
