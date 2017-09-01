@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Alert, Button, Icon } from 'react-native';
+import { Form, Separator, InputField } from 'react-native-form-generator';
 import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { setUserInfo } from '../../Actions/Profile/ProfileAction.js'
+import { setUserInfo } from '../../Actions/Profile/ProfileAction.js';
 
 const db = firebase.database()
 
@@ -22,12 +23,19 @@ class AddCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardNumber: '',
-      expiration: '',
-      cvc: '',
+      formData: {}
     }
-    this.addAWallet = this.addAWallet.bind(this);
-    this.addACard = this.addACard.bind(this);
+    this.addAWallet = this.addAWallet.bind(this)
+    this.addACard = this.addACard.bind(this)
+    this.handleFormChange = this.handleFormChange.bind(this)
+  }
+
+  handleFormChange(formData){
+    this.state.formData= formData
+  }
+
+  addACard() {
+    console.log(this.state.formData)
   }
 
   addAWallet() {
@@ -39,34 +47,54 @@ class AddCard extends Component {
         .then(({ data }) => {
           db.ref('users/' + userUID).set({
             wallet: data,
-          })
+          });
           this.props.setUserInfo({
             qr: data
-          })
-        })
+          });
+        });
       }
-    })
+    });
   }
 
   render() {
     return (
-      <View style={styles.body}>
-        <View style={styles.inputFields}>
-          <View style={{height: "15%"}}>
-            <Text style={styles.credentials}>Card Number</Text>
-          </View>
-          <TextInput style={styles.cardNumberInputField} placeholder="Credit Card Number" onChangeText={(text) => this.setState({cardNumber: text})} value={this.state.amount} maxLength={16}/>
-          <View style={{height: "15%"}}>
-            <Text style={styles.credential}>Expiration Date</Text>
-          </View>
-          <TextInput style={styles.expirationInputField} placeholder='Expiration Date' onChangeText={(text) => this.setState({expiration: text})} value={this.state.expiration} maxLength={5}/>
-          <View style={{height: "15%"}}>
-            <Text style={styles.credential}>CVC</Text>
-          </View>
-          <TextInput style={styles.cvcInputField} placeholder='CVC' onChangeText={(text) => this.setState({cvc: text})} value={this.state.cvc} maxLength={3}/>
-          <Button title="AddACard" onPress={this.addACard}>Add a Card</Button>
-          <Button title="AddAWallet" onPress={this.addAWalle}>Add a Wallet</Button>
-        </View>
+      <View>
+        <Form
+           style={styles.form}
+           ref='CreditCardInfo'
+           onChange={this.handleFormChange}
+           label='CreditCardInfo' >
+
+         <InputField
+             ref='CardNumber'
+             placeholder='Credit Card Number'
+             value={this.state.cardNumber}
+
+           />
+
+
+          <InputField
+             ref='CardDateMonth'
+             placeholder='Exp. Month'
+             value={this.state.cardMonth}
+
+           />
+
+         <InputField
+             ref='CardDateYear'
+             placeholder='Exp. Year'
+             value={this.state.cardYear}
+
+           />
+         <InputField
+             ref='CardCVC'
+             placeholder='CVC'
+             value={this.state.cvc}
+           />
+         </Form>
+
+        <Button title="Add A Card" onPress={this.addACard}>Add a Card</Button>
+        <Button title="Add A sWallet" onPress={this.addAWallet}>Add a Wallet</Button>
       </View>
     )
   }
@@ -74,43 +102,21 @@ class AddCard extends Component {
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    top: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  inputFields: {
-    marginTop: '5%',
-    height: '35%',
-    width: 200,
-    borderColor: 'gray',
+  image: {
+    height: 100,
+    borderRadius: 50,
+    width: 100,
+    alignItems: 'center',
+    backgroundColor: '#C0C0C0'
   },
-  credentials: {
-    paddingTop: 10
-  },
-  cardNumberInputField: {
-    width: '100%',
-    height: '30%',
-    borderColor: 'gray',
-    borderColor: 'gray',
-    borderWidth: 1,
-    textAlign: 'center'
-  },
-  expirationInputField: {
-    width: '100%',
-    height: '30%',
-    borderColor: 'gray',
-    borderColor: 'gray',
-    borderWidth: 1,
-    textAlign: 'center'
-  },
-  cvcInputField: {
-    width: '100%',
-    height: '30%',
-    borderColor: 'gray',
-    borderColor: 'gray',
-    borderWidth: 1,
-    textAlign: 'center'
+  icon: {
+    marginTop: 7,
+    marginLeft: 4,
+    color:'gray'
   }
 })
 
