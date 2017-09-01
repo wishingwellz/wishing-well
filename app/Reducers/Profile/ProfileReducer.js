@@ -5,7 +5,7 @@ export const ProfileReducer = (state={
   email: '',
   bio: '',
   uid: '',
-  qr: ''
+  qr: '',
 }, action) => {
   switch(action.type) {
     case 'SET_USERINFO': {
