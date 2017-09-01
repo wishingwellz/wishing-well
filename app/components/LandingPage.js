@@ -54,6 +54,7 @@ class LandingPage extends Component {
         <View>
           <NavigationBar title={{title:'My Wishing Well'}} tintColor='#99ccff'/>
         </View>
+<<<<<<< HEAD
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
@@ -68,6 +69,17 @@ class LandingPage extends Component {
               <Text style={styles.amount}>{item.amount}</Text>
             </View>}       
           />
+=======
+          <Text>This is the Home page</Text>
+          <Text>This is the Home page</Text>
+          <Text>This is the Home page</Text>
+          <Text>This is the Home page</Text>
+
+          <FlatList
+            data={this.props.logs}
+            renderItem={({item}) => <Text>{item.amount}</Text>}
+        />
+>>>>>>> Credit card form working
       </View>
     )
   }
