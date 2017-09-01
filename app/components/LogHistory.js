@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native'
 import NavigationBar from 'react-native-navbar'
 import * as firebase from 'firebase'
+import moment from 'moment'
 import { connect } from 'react-redux'
 import { setSavings } from '../Actions/Savings/SavingsAction'
 const db = firebase.database()
@@ -29,19 +30,21 @@ class LogHistory extends Component {
         <View>
           <NavigationBar title={{title:'Savings'}} tintColor='#99ccff'/>
         </View>
-          <View>
-              <FlatList
+            <ScrollView style={styles.log}>
+              <FlatList 
+                removeClippedSubviews={false}
                 data={this.props.logs}
                 renderItem={({item}) =>
                   <View style={styles.list}>
                     <Text style={styles.description}>{item.description}</Text>
                     <Text style={styles.date}>{item.date}</Text>
                     <Text style={styles.amount}>${item.amount}</Text>
+                    <Text style={styles.amount}>${item.amount}</Text>
                   </View>
                 }
                 style={{height:'100%'}}
               />
-          </View>
+              </ScrollView>
       </View>
     )
   }
@@ -71,6 +74,9 @@ const styles = StyleSheet.create({
     marginLeft: 7,
     top: 5,
     color: 'gray'
+  },
+  log : {
+    marginBottom: '17.5%'
   }
 })
 

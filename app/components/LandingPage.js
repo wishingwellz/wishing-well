@@ -33,6 +33,11 @@ const mapStateToProps = (state) => {
 }
 
 class LandingPage extends Component {
+  constructor(props) {
+    super(props)
+
+    this.getTotal = this.getTotal.bind(this)
+  }
 
   componentWillMount() {
     firebase.database().ref(`users/${this.props.uid}`).once('value').then(data => {
@@ -55,19 +60,29 @@ class LandingPage extends Component {
     })
   }
 
+  getTotal() {
+    let total = 0;
+    for(let i = 0; i < this.props.logs.length; i++) {
+      total += Number(this.props.logs[i]['amount'])
+    }
+    return total
+  }
+
   render() {
     return (
       <View >
         <View>
           <NavigationBar title={{title:'My Wishing Well'}} tintColor='#99ccff'/>
         </View>
+
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
           <Text>HERE IS A WELL</Text>
-          <Text>HERE IS A WELL</Text>
+          <Text>{this.getTotal()}</Text>
           <FlatList
+            removeClippedSubviews={false}
             data={this.props.logs}
             renderItem={({item}) =>
             <View>
