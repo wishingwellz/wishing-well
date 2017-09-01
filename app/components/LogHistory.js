@@ -15,15 +15,15 @@ const mapStateToProps = (state) => {
 }
 
 class LogHistory extends Component {
-  
+
   componentWillMount(){
-    db.ref(`users/${this.props.uid}`).on('value', (snapshot) => {
-      this.props.setSavings(snapshot.val().logs)
+    db.ref(`users/${this.props.uid}/logs`).on('value', (snapshot) => {
+      this.props.setSavings(Object.values(snapshot.val()))
     })
   }
 
   render() {
-    
+
     return (
       <View>
         <View>
@@ -32,13 +32,14 @@ class LogHistory extends Component {
           <View>
               <FlatList
                 data={this.props.logs}
-                renderItem={({item}) => 
+                renderItem={({item}) =>
                   <View style={styles.list}>
                     <Text style={styles.description}>{item.description}</Text>
                     <Text style={styles.date}>{item.date}</Text>
                     <Text style={styles.amount}>${item.amount}</Text>
                   </View>
                 }
+                style={{height:'100%'}}
               />
           </View>
       </View>
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     marginLeft: 7
   },
   amount: {
-    textAlign: 'right', 
+    textAlign: 'right',
     alignSelf: 'stretch',
     fontSize: 20,
     marginBottom: 3,

@@ -36,6 +36,18 @@ class AddCard extends Component {
 
   addACard() {
     console.log(this.state.formData)
+    let cardInfo = {
+      number: this.state.formData.CardNumber,
+      exp_month: this.state.formData.CardDateMonth,
+      exp_year: this.state.formData.CardDateYear
+    }
+    axios.post('http://localhost:4000/api/addACard', cardInfo)
+    .then(({ data }) => {
+      db.ref('users/' + this.props.uid).update({
+        cardID: data
+      });
+
+    })
   }
 
   addAWallet() {
@@ -45,7 +57,7 @@ class AddCard extends Component {
       if (!data.val().wallet) {
         axios.post('http://localhost:4000/api/addAWallet', {UID: userUID})
         .then(({ data }) => {
-          db.ref('users/' + userUID).set({
+          db.ref('users/' + userUID).update({
             wallet: data,
           });
           this.props.setUserInfo({
