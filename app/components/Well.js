@@ -34,7 +34,7 @@ class Well extends Component {
   componentWillUnmount() {
     timer.clearTimeout(this);
   }
-  
+
   componentWillMount() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xE9E9E9)
@@ -49,10 +49,6 @@ class Well extends Component {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
     this.scene.add(this.mesh);
   }
-
-  // componentDidMount() {
-  //   // timer.setInterval(this, 'slowDown', this.slowDown(), 500)
-  // }
 
   componentDidMount() {
       this.setInterval(
@@ -71,9 +67,6 @@ class Well extends Component {
       coinSpeed: 2
     });
 
-
-    //we can use usernmae for ref so each username gets its individual log
-    
     const ref = db.ref(`users/${this.props.uid}/logs`)
 
     ref.push({
@@ -81,7 +74,6 @@ class Well extends Component {
       amount: this.state.amount,
       description: this.state.description
     })
-
   }
 
   slowDown() {
@@ -89,9 +81,6 @@ class Well extends Component {
       let newSpeed = this.state.coinSpeed + 0.75;
       this.setState({coinSpeed: newSpeed})
     }
-    // this.setState({coinSpeed: 20}, () => timer.setTimeout(
-    //   this, 'slowSpeed', () => this.setState({coinSpeed: 2}), 5000
-    // ));
   }
 
 

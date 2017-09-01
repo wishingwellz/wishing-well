@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Image, TextInput, FlastList } from 'react-native';
+import { View, Text, StyleSheet, Button, Image, TextInput } from 'react-native';
 import { ImagePicker } from 'expo'
 import { Form, Separator, InputField, LinkField, SwitchField, PickerField} from 'react-native-form-generator';
 import { connect } from 'react-redux';
@@ -7,9 +7,7 @@ import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 import NavigationBar from 'react-native-navbar'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Actions } from 'react-native-router-flux'
 import * as firebase from 'firebase'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,10 +15,12 @@ const mapStateToProps = (state) => {
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
-    bio: state.ProfileReducer.bio,
-    uid: state.ProfileReducer.uid,
-    photo: state.PhotoReducer.photo
-  }}
+    photo: state.PhotoReducer.photo,
+    bio: state.PhotoReducer.bio,
+    uid: state.ProfileReducer.uid
+  }
+}
+
 
 class Settings extends Component {
   static navigationOptions = {
@@ -39,6 +39,7 @@ class Settings extends Component {
 
   handleFormChange(formData){
     this.state.formData= formData
+
   }
 
   handleOnSave() {
@@ -47,11 +48,8 @@ class Settings extends Component {
       this.setState({
         photo: this.props.photo
       })
-    } else {
-      this.props.setUserPhoto(this.state.photo)
     }
-    
-    //updates db 
+    this.props.setUserPhoto(this.state.photo)
     firebase.database().ref(`users/${this.props.uid}`).update({
       username: this.state.formData.username || this.props.username,
       firstname: this.state.formData.firstname || this.props.firstname,
@@ -63,19 +61,9 @@ class Settings extends Component {
     })
   }
 
-  handleOnSave() {
-    this.props.setUserInfo(this.state.formData)
-  }
-
-  
-  componentDidMount(){
-  }
-  
-  
   render() {
     let { photo } = this.state;
     return (
-      <KeyboardAwareScrollView>
       <View>
        <View style={styles.body}>
           <Image source={{ uri: photo || this.props.photo }} onPress={this._pickImage} style={styles.image} />
@@ -97,6 +85,7 @@ class Settings extends Component {
             value={this.props.username}
             iconLeft={<Icon name='account-circle' size={30} style={styles.icon}/>}
           />
+
 
          <InputField
             ref='firstname'
@@ -129,9 +118,8 @@ class Settings extends Component {
           title="Done"
           onPress={() => this.handleOnSave()}
         ></Button>
-      </View>
-      </KeyboardAwareScrollView>
 
+      </View>
     );
   }
 
@@ -140,6 +128,8 @@ class Settings extends Component {
       allowsEditing: true,
       aspect: [4, 3],
     });
+
+    console.log(result);
 
     if (!result.cancelled) {
       this.setState({ photo: result.uri });
