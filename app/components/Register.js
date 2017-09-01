@@ -13,15 +13,13 @@ import * as firebase from 'firebase'
 
 const db = firebase.database()
 
-
-
 export default class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: '',
       password: '',
-      reEnter: ''   
+      reEnter: ''
     }
     this._registerAccount = this._registerAccount.bind(this)
   }
@@ -32,7 +30,7 @@ export default class Register extends Component {
         console.log(err.code)
         console.log(err.message)
       })
-      
+
       Actions.Login()
     } else {
       alert('There is something wrong with your credentials!')
@@ -45,8 +43,8 @@ export default class Register extends Component {
         <Text style={styles.title}>
           Register Account
         </Text>
-        
-        <TextInput 
+
+        <TextInput
           style={styles.inputFields}
           placeholder="Email"
           onChangeText={(text) => this.setState({email: text})}
@@ -54,8 +52,8 @@ export default class Register extends Component {
           autoCorrect={false}
           autoCapitalize='none'
         />
-        
-        <TextInput 
+
+        <TextInput
           style={styles.inputFields}
           placeholder="Password"
           onChangeText={(text) => this.setState({password: text})}
@@ -65,7 +63,7 @@ export default class Register extends Component {
           autoCapitalize='none'
         />
 
-        <TextInput 
+        <TextInput
           style={styles.inputFields}
           placeholder="Re-enter password"
           onChangeText={(text) => this.setState({reEnter: text})}
@@ -75,8 +73,8 @@ export default class Register extends Component {
           autoCapitalize='none'
         />
 
-        <Button title="Login" onPress={() => Actions.Login()}></Button>  
-        <Button title="Register" onPress={this._registerAccount}></Button> 
+        <Button title="Login" onPress={() => Actions.Login()}></Button>
+        <Button title="Register" onPress={this._registerAccount}></Button>
       </View>
     );
   }
@@ -86,7 +84,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginTop: '20%',
-  }, 
+  },
   title: {
     fontWeight: 'bold'
   },
@@ -103,4 +101,3 @@ const styles = StyleSheet.create({
     paddingTop: 20
   }
 });
-

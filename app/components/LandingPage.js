@@ -47,7 +47,7 @@ class LandingPage extends Component {
       this.props.setUserPhoto(photo)
     })
   }
-  
+
   render() {
     return (
       <View >
@@ -58,12 +58,11 @@ class LandingPage extends Component {
           <Text>This is the Home page</Text>
           <Text>This is the Home page</Text>
           <Text>This is the Home page</Text>
-      
+
           <FlatList
             data={this.props.logs}
             renderItem={({item}) => <Text>{item.amount}</Text>}
         />
-
       </View>
     )
   }

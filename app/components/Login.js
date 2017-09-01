@@ -36,13 +36,9 @@ class Login extends Component {
     .then(data => {
       if (data) {
         const uid = data.uid.substring(0, 10)
-        // firebase.database().ref('users/' + uid).update({
-        //   username: this.state.email
-        // })
-        
         this.props.setUserInfo({
           email: data.email,
-          uid: uid
+          uid: uid,
         })
         Actions.Home()
       }
@@ -61,7 +57,7 @@ class Login extends Component {
 
     if (type === 'success') {
       // Get the user's name using Facebook's Graph API
-      
+
       fetch(`https://graph.facebook.com/me?access_token=${token}`)
       .then(response => {
         let res = JSON.parse(response._bodyText)
@@ -167,3 +163,4 @@ const styles = StyleSheet.create({
 
 
 export default connect(null, { setUserInfo })(Login);
+
