@@ -77,7 +77,7 @@ class Well extends Component {
     const ref = db.ref(`users/${this.props.uid}/logs`)
 
     ref.push({
-      date: new Date(),
+      date: new Date().toDateString(),
       amount: this.state.amount,
       description: this.state.description
     })

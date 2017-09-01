@@ -54,26 +54,33 @@ class LandingPage extends Component {
         <View>
           <NavigationBar title={{title:'My Wishing Well'}} tintColor='#99ccff'/>
         </View>
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-          <Text>This is the Home page</Text>
-
+          <Text>HERE IS A WELL</Text>
+          <Text>HERE IS A WELL</Text>
+          <Text>HERE IS A WELL</Text>
+          <Text>HERE IS A WELL</Text>
+          <Text>HERE IS A WELL</Text>
+          <Text>HERE IS A WELL</Text>
           <FlatList
             data={this.props.logs}
-            renderItem={({item}) => <Text>{item.amount}</Text>}
-        />
+            renderItem={({item}) => 
+            <View>
+              <Text style={styles.date}>{item.date}</Text>
+              <Text style={styles.amount}>{item.amount}</Text>
+            </View>}       
+          />
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  // body: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center'
-  // }
+  date: {
+    textAlign: 'left'
+  },
+  amount: {
+    textAlign: 'right',
+    marginRight: 15
+  }
 })
 
 export default connect(mapStateToProps, { setSavings, setUserInfo, setUserPhoto })(LandingPage)
