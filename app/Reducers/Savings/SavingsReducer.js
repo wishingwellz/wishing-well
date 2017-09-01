@@ -4,7 +4,7 @@ export const SavingsReducer = (state={
   switch(action.type) {
     case 'SAVE_MONEY': {
       return Object.assign({}, state, {
-        entries: [...state.entries, action.payload]
+        entries: [...state.entries, ...action.payload]
       })
     }
     default: {

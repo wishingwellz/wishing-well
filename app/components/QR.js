@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import NavigationBar from 'react-native-navbar'
 import QRCode from 'react-native-qrcode'
 import { connect } from 'react-redux'
 
@@ -16,7 +17,10 @@ class QR extends Component {
   render() {
 
     return (
-      <View style={styles.body}>
+      <View>
+         <View>
+          <NavigationBar title={{title:'QR Code'}} tintColor='#99ccff'/>
+        </View>
         <Text>This is your QR code</Text>
         <QRCode value={this.props.qr} size={200} />
       </View>
