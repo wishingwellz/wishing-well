@@ -3,29 +3,39 @@ import { View, Text, StyleSheet, FlatList } from 'react-native'
 import NavigationBar from 'react-native-navbar'
 import * as firebase from 'firebase'
 import { connect } from 'react-redux'
-
+import { setSavings } from '../Actions/Savings/SavingsAction'
 const db = firebase.database()
+
 
 const mapStateToProps = (state) => {
   return {
-    logs: state.SavingsReducer.entries
+    logs: state.SavingsReducer.entries,
+    uid: state.ProfileReducer.uid
   }
 }
 
 class LogHistory extends Component {
+  
+  componentWillMount(){
+    db.ref(`users/${this.props.uid}`).on('value', (snapshot) => {
+      this.props.setSavings(snapshot.val().logs)
+    })
+  }
 
   render() {
+    
     return (
       <View>
         <View>
           <NavigationBar title={{title:'Savings'}} tintColor='#99ccff'/>
         </View>
-          <View style={styles.body}>
+          <View>
               <FlatList
                 data={this.props.logs}
                 renderItem={({item}) => 
                   <View style={styles.list}>
                     <Text style={styles.description}>{item.description}</Text>
+                    <Text style={styles.date}>{item.date}</Text>
                     <Text style={styles.amount}>${item.amount}</Text>
                   </View>
                 }
@@ -37,12 +47,6 @@ class LogHistory extends Component {
 }
 
 const styles = StyleSheet.create({
-  body: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-    // top: 80
-  },
   list: {
     borderBottomWidth: 0.5,
     borderColor: 'black',
@@ -51,13 +55,22 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 20,
-    top: 5
+    top: 5,
+    marginLeft: 7
   },
   amount: {
     textAlign: 'right', 
     alignSelf: 'stretch',
-    // top: 50
+    fontSize: 20,
+    marginBottom: 3,
+    marginRight: 10,
+    marginTop: 4
+  },
+  date: {
+    marginLeft: 7,
+    top: 5,
+    color: 'gray'
   }
 })
 
-export default connect(mapStateToProps)(LogHistory)
+export default connect(mapStateToProps, { setSavings })(LogHistory)
