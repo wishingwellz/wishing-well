@@ -26,50 +26,17 @@ module.exports = {
         });
       }
     })
-
-  //   stripe.accounts.create({
-  //     type: 'standard',
-  //     country: 'US',
-  //     email: 'austenesus@g.ucla.edu'
-  //   }, function(err, account) {
-  //     if (err) {
-  //       console.log(err)
-  //     }
-  //     console.log(account)
-  //   });
-  // }
+  },
+  makePayment: (req, res) => {
+    console.log('REQ BODY', req.body)
+    // stripe.charges.create({
+    //   amount: 50,
+    //   currency: 'usd',
+    //   customer: req.body.cardID,
+    // })
+    // .then(data => {
+    //   console.log(data)
+    // })
+    res.send('Payment complete.')
   }
 }
-// stripe.charges.create({
-//   amount: 50,
-//   currency: "usd",
-//   source: token.id, // obtained with Stripe.js
-//   description: "Charge for austenesus@gmail.com"
-// }, function(err, charge) {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log(charge)
-//   }
-// });
-
-
-
-// stripe.charges.create({
-//   amount: 0.50,
-//   currency: "usd",
-//   source: '', // obtained with Stripe.js
-//   description: "Charge for austenesus@gmail.com"
-// }, function(err, charge) {
-//   if (err) {
-//     console.log(err)
-//   } else {
-//     console.log(charge)
-//   }
-// });
-
-// stripe.charges.create({
-//   amount: 50,
-//   currency: 'usd',
-//   customer: '',
-// }).then(data => console.log(data))

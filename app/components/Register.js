@@ -26,7 +26,23 @@ export default class Register extends Component {
 
   _registerAccount() {
     if (this.state.password === this.state.reEnter) {
-      firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).catch(err => {
+      firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(data => {
+        console.log('successfully created an account', data)
+        firebase.database().ref(`users/${data.uid.substring(0, 10)}`).set({
+          username: '',
+          firstname: '',
+          lastname: '',
+          email: data.email,
+          uid: data.uid,
+          bio: '',
+          cardID: '',
+          wallet: '',
+          photo: '',
+          total: 0,
+        })
+      })
+      .catch(err => {
         console.log(err.code)
         console.log(err.message)
       })

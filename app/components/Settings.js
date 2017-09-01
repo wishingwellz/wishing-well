@@ -48,14 +48,14 @@ class Settings extends Component {
       this.setState({
         photo: this.props.photo
       })
-    }
-    this.props.setUserPhoto(this.state.photo)
+    } else {
+      this.props.setUserPhoto(this.state.photo)
+    } 
     firebase.database().ref(`users/${this.props.uid}`).update({
       username: this.state.formData.username || this.props.username,
       firstname: this.state.formData.firstname || this.props.firstname,
       lastname: this.state.formData.lastname || this.props.lastname,
       email: this.state.formData.email || this.props.email,
-      uid: this.state.formData.uid || this.props.uid,
       bio: this.state.formData.bio || this.props.bio,
       photo: this.state.photo || this.props.photo
     })

@@ -7,6 +7,7 @@ import * as firebase from "firebase"
 import TimerMixin from 'react-timer-mixin'
 import reactMixin from 'react-mixin'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
@@ -15,7 +16,9 @@ const db = firebase.database()
 
 const mapStateToProps = state => {
   return {
-    uid: state.ProfileReducer.uid
+    uid: state.ProfileReducer.uid,
+    qr: state.ProfileReducer.qr,
+    cardID: state.ProfileReducer.cardID
   }
 }
 class Well extends Component {
@@ -74,6 +77,37 @@ class Well extends Component {
       amount: this.state.amount,
       description: this.state.description
     })
+    this.setState({
+      amount: '',
+      description: '',
+    })
+
+    if (this.props.qr !== '' && this.props.cardID !== '') {
+      let chargeObj = {
+        walletAddress: this.props.qr,
+        cardID: this.props.cardID,
+        amount: this.state.amount,
+      }
+      axios.post('http://localhost:4000/api/makeSavings', chargeObj)
+      .then(data => {
+        console.log(data)
+        this.setTimeout(
+          () => { alert('Savings Added') },
+          750
+        );
+        let buyObj = {
+          walletAddress: this.props.qr,
+          uid: this.props.uid,
+        }
+
+        // axios.post('http://localhost:4000/api/buyCrypto', buyObj)
+      })
+    } else {
+      this.setTimeout(
+        () => { alert('Savings Logged') },
+        750
+      );
+    }
   }
 
   slowDown() {
@@ -127,21 +161,19 @@ class Well extends Component {
 reactMixin(Well.prototype, TimerMixin);
 
 const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
   coin: {
     height: '80%',
     width: '100%',
   },
   inputFields: {
     marginTop: '5%',
-    height: '35%',
-    width: 200,
+    marginLeft: '25%',
+    height: '20%',
+    width: '50%',
     borderColor: 'gray',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   credentials: {
     paddingTop: 10

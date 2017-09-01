@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { setUserInfo } from '../../Actions/Profile/ProfileAction.js';
+import { Switch } from 'react-native-switch';
 
 const db = firebase.database()
 
@@ -14,7 +15,8 @@ const mapStateToProps = (state) => {
     firstname: state.ProfileReducer.firstname,
     lastname: state.ProfileReducer.lastname,
     email: state.ProfileReducer.email,
-    uid: state.ProfileReducer.uid
+    uid: state.ProfileReducer.uid,
+    investments: state.ProfileReducer.investments
   }
 }
 
@@ -46,7 +48,9 @@ class AddCard extends Component {
       db.ref('users/' + this.props.uid).update({
         cardID: data
       });
-
+      this.props.setUserInfo({
+        cardID: data
+      });
     })
   }
 
@@ -79,7 +83,7 @@ class AddCard extends Component {
 
          <InputField
              ref='CardNumber'
-             placeholder='Credit Card Number'
+             placeholder='Card Number'
              value={this.state.cardNumber}
 
            />
@@ -106,7 +110,31 @@ class AddCard extends Component {
          </Form>
 
         <Button title="Add A Card" onPress={this.addACard}>Add a Card</Button>
-        <Button title="Add A sWallet" onPress={this.addAWallet}>Add a Wallet</Button>
+        <Button title="Add A Wallet" onPress={this.addAWallet}>Add a Wallet</Button>
+        <View style={styles.toggleSwitch}>
+          <Switch
+            value={false}
+            onValueChange={(val) => {
+              if (val) {
+                this.props.setUserInfo({
+                  investments: 'End of Day',
+                })
+                console.log()
+              } else {
+                this.props.setUserInfo({
+                  investments: 'Immediate',
+                })
+              }
+            }}
+            disabled={false}
+            activeText={'On'}
+            inActiveText={'Off'}
+            backgroundActive={'green'}
+            backgroundInactive={'gray'}
+            circleActiveColor={'#30a566'}
+            circleInActiveColor={'#000000'}
+          />
+        </View>
       </View>
     )
   }
@@ -129,6 +157,9 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginLeft: 4,
     color:'gray'
+  },
+  toggleSwitch: {
+    marginLeft: '41%',
   }
 })
 
