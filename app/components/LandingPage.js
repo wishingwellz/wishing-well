@@ -16,6 +16,7 @@ import { setSavings } from '../Actions/Savings/SavingsAction'
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
 
+
 const mapStateToProps = (state) => {
   return {
     uid: state.ProfileReducer.uid,

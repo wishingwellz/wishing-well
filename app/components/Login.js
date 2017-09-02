@@ -36,6 +36,8 @@ class Login extends Component {
     .then(data => {
       if (data) {
         const uid = data.uid.substring(0, 10)
+        
+        
         this.props.setUserInfo({
           email: data.email,
           uid: uid,

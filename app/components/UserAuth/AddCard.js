@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { setUserInfo } from '../../Actions/Profile/ProfileAction.js';
 import { Switch } from 'react-native-switch';
+import { CreditCardInput } from "react-native-credit-card-input";
 
 const db = firebase.database()
 
@@ -34,24 +35,28 @@ class AddCard extends Component {
 
   handleFormChange(formData){
     this.state.formData= formData
+
   }
 
   addACard() {
-    console.log(this.state.formData)
-    let cardInfo = {
-      number: this.state.formData.CardNumber,
-      exp_month: this.state.formData.CardDateMonth,
-      exp_year: this.state.formData.CardDateYear
-    }
-    axios.post('http://localhost:4000/api/addACard', cardInfo)
-    .then(({ data }) => {
-      db.ref('users/' + this.props.uid).update({
-        cardID: data
-      });
-      this.props.setUserInfo({
-        cardID: data
-      });
-    })
+      if (this.state.formData.valid === true) {
+        let cardInfo = {
+          number: this.state.formData.values.number,
+          exp_month: +this.state.formData.values.expiry.slice(0,2),
+          exp_year: +this.state.formData.values.expiry.slice(3)
+        }
+        axios.post('http://localhost:4000/api/addACard', cardInfo)
+        .then(({ data }) => {
+          db.ref('users/' + this.props.uid).update({
+            cardID: data
+          });
+          this.props.setUserInfo({
+            cardID: data
+          });
+        })
+      } else {
+        Alert.alert('invalid card information!')
+      }
   }
 
   addAWallet() {
@@ -75,66 +80,10 @@ class AddCard extends Component {
   render() {
     return (
       <View>
-        <Form
-           style={styles.form}
-           ref='CreditCardInfo'
-           onChange={this.handleFormChange}
-           label='CreditCardInfo' >
-
-         <InputField
-             ref='CardNumber'
-             placeholder='Card Number'
-             value={this.state.cardNumber}
-
-           />
-
-
-          <InputField
-             ref='CardDateMonth'
-             placeholder='Exp. Month'
-             value={this.state.cardMonth}
-
-           />
-
-         <InputField
-             ref='CardDateYear'
-             placeholder='Exp. Year'
-             value={this.state.cardYear}
-
-           />
-         <InputField
-             ref='CardCVC'
-             placeholder='CVC'
-             value={this.state.cvc}
-           />
-         </Form>
-
-        <Button title="Add A Card" onPress={this.addACard}>Add a Card</Button>
+        <CreditCardInput onChange={this.handleFormChange}/>
+        <Button title="submit" onPress={this.addACard}></Button>
         <Button title="Add A Wallet" onPress={this.addAWallet}>Add a Wallet</Button>
-        <View style={styles.toggleSwitch}>
-          <Switch
-            value={false}
-            onValueChange={(val) => {
-              if (val) {
-                this.props.setUserInfo({
-                  investments: 'End of Day',
-                })
-                console.log()
-              } else {
-                this.props.setUserInfo({
-                  investments: 'Immediate',
-                })
-              }
-            }}
-            disabled={false}
-            activeText={'On'}
-            inActiveText={'Off'}
-            backgroundActive={'green'}
-            backgroundInactive={'gray'}
-            circleActiveColor={'#30a566'}
-            circleInActiveColor={'#000000'}
-          />
-        </View>
+        
       </View>
     )
   }
