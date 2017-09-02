@@ -15,7 +15,8 @@ import { connect } from 'react-redux'
 import { setSavings } from '../Actions/Savings/SavingsAction'
 import { setUserInfo } from '../Actions/Profile/ProfileAction'
 import { setUserPhoto } from '../Actions/Profile/PhotoAction'
-
+import { setBitcoinValue } from '../Actions/Bitcoin/BitcoinAction'
+import axios from 'axios'
 
 const mapStateToProps = (state) => {
   return {
@@ -30,6 +31,7 @@ const mapStateToProps = (state) => {
     qr: state.ProfileReducer.qr,
     cardID: state.ProfileReducer.cardID,
     total: state.ProfileReducer.total,
+    bitcoinValue: state.BitcoinValueReducer.bitcoinValue
   }
 }
 
@@ -52,12 +54,15 @@ class LandingPage extends Component {
         bio,
         qr: wallet,
         cardID,
-        photo,
         total
       })
-      console.log('this is the user', data.val())
       this.props.setSavings(logs)
       this.props.setUserPhoto(photo)
+    })
+
+    axios.get('http://localhost:4000/api/getBitcoinValue')
+    .then(({ data }) => {
+      this.props.setBitcoinValue(data)
     })
   }
 
@@ -75,22 +80,9 @@ class LandingPage extends Component {
         <View>
           <NavigationBar title={{title:'My Wishing Well'}} tintColor='#99ccff'/>
         </View>
-
-          <Text>HERE IS A WELL</Text>
-          <Text>HERE IS A WELL</Text>
-          <Text>HERE IS A WELL</Text>
-          <Text>HERE IS A WELL</Text>
-          <Text>HERE IS A WELL</Text>
           <Text>{this.getTotal()}</Text>
-          <FlatList
-            removeClippedSubviews={false}
-            data={this.props.logs}
-            renderItem={({item}) =>
-            <View>
-              <Text style={styles.date}>{item.date}</Text>
-              <Text style={styles.amount}>{item.amount}</Text>
-            </View>}
-          />
+          
+          <Text style={{fontSize: 40}}>1 Bitcoin = ${this.props.bitcoinValue}</Text>
       </View>
     )
   }
@@ -106,4 +98,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(mapStateToProps, { setSavings, setUserInfo, setUserPhoto })(LandingPage)
+export default connect(mapStateToProps, { setSavings, setUserInfo, setUserPhoto, setBitcoinValue })(LandingPage)

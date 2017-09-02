@@ -8,5 +8,5 @@ router.post('/addAWallet', coinBaseController.addAWallet)
 router.post('/buyCrypto', coinBaseController.buyCrypto)
 router.post('/addACard', stripeController.addACard)
 router.post('/makeSavings', stripeController.makePayment)
-
+router.get('/getBitcoinValue', coinBaseController.getBitcoinValue)
 module.exports = router;
