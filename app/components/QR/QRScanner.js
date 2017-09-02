@@ -5,19 +5,16 @@ import QRCode from 'react-native-qrcode'
 import { connect } from 'react-redux'
 import { BarCodeScanner, Permissions } from 'expo';
 import { Actions } from 'react-native-router-flux'
+import * as firebase from 'firebase'
+import { setUserInfo } from '../../Actions/Profile/ProfileAction'
 
-const mapStateToProps = state => {
-  return {
-    qr: state.ProfileReducer.qr
-  }
-}
-
-export default class QRScanner extends Component {
+class QRScanner extends Component {
   constructor(props) {
     super(props)
     this.state = {
       hasCameraPermission: null,
       lastScannedUrl: null,
+      donationID: '',
     };
   }
   componentDidMount() {
@@ -34,7 +31,13 @@ export default class QRScanner extends Component {
   _handleBarCodeRead = result => {
     if (result.data !== this.state.lastScannedUrl) {
       LayoutAnimation.spring();
-      this.setState({ lastScannedUrl: result.data });
+      firebase.database().ref(`users/${result.data}`).once('value')
+      .then(data => {
+        this.setState({
+          lastScannedUrl: data.val().email,
+          donationID: data.val().uid
+        });
+      })
     }
   };
 
@@ -70,7 +73,12 @@ export default class QRScanner extends Component {
       [
         {
           text: 'Yes',
-          onPress: () => Actions.DonationWell(),
+          onPress: () => {
+            this.props.setUserInfo({
+              donationID: this.state.donationID,
+            })
+            Actions.DonationWell()
+          },
         },
         { text: 'No', onPress: () => {} },
       ],
@@ -139,3 +147,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
+export default connect(null, { setUserInfo} )(QRScanner)

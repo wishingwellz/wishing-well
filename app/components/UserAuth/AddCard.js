@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
    borderRadius: 50,
    width: 100,
    alignItems: 'center',
-   backgroundColor: '#C0C0C0 '
+   backgroundColor: '#C0C0C0'
  },
  icon: {
    marginTop: 7,
