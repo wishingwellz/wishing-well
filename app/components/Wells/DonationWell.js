@@ -34,10 +34,6 @@ class Well extends Component {
     this.slowDown = this.slowDown.bind(this)
   }
 
-  componentWillUnmount() {
-    timer.clearTimeout(this);
-  }
-
   componentWillMount() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xE9E9E9)
@@ -86,7 +82,7 @@ class Well extends Component {
       let chargeObj = {
         walletAddress: this.props.qr,
         cardID: this.props.cardID,
-        amount: this.state.amount,
+        amount: Number(this.state.amount),
       }
       axios.post('http://localhost:4000/api/makeSavings', chargeObj)
       .then(data => {

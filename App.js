@@ -13,11 +13,13 @@ import { Provider } from 'react-redux'
 import Login from './app/components/Login'
 import Landing from './app/components/LandingPage'
 import LogHistory from './app/components/LogHistory'
-import QR from './app/components/QR'
+import QR from './app/components/QR/QR'
 import Profile from './app/components/Profile'
 import Settings from './app/components/Settings'
-import Well from './app/components/Well'
+import Well from './app/components/Wells/Well'
+import DonationWell from './app/components/Wells/DonationWell'
 import AddCard from './app/components/UserAuth/AddCard'
+import QRScanner from './app/components/QR/QRScanner'
 
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -41,10 +43,10 @@ class TabIcon extends Component {
 }
 
 export default class WishingWell extends Component {
-    
+
   render() {
     return (
-    <Provider store={store}>      
+    <Provider store={store}>
       <Router>
         <Scene key="root" >
           <Scene key="Login" component={Login} initial hideNavBar/>
@@ -58,6 +60,8 @@ export default class WishingWell extends Component {
           </Scene>
             <Scene key="Settings" component={Settings} hideNavBar/>
             <Scene key="AddCard" component={AddCard} title="AddCard"/>
+            <Scene key="QRScanner" component={QRScanner} title="QRScanner"/>
+            <Scene key="DonationWell" component={DonationWell} title="DonationWell"/>
         </Scene>
       </Router>
     </Provider>
