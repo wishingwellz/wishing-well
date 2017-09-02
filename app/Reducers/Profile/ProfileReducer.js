@@ -7,7 +7,8 @@ export const ProfileReducer = (state={
   uid: '',
   qr: '',
   cardID: '',
-  total: 0
+  total: 0,
+  donationID: '',
 }, action) => {
   switch(action.type) {
     case 'SET_USERINFO': {
@@ -21,6 +22,7 @@ export const ProfileReducer = (state={
         qr: action.payload.qr || state.qr,
         cardID: action.payload.cardID || state.cardID,
         total: action.payload.total || state.total,
+        donationID: action.payload.donationID || state.donationID
       })
     }
     default: {

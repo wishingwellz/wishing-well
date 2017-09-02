@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
 import Expo from 'expo'
-import NavigationBar from 'react-native-navbar'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
 import * as firebase from "firebase"
 import TimerMixin from 'react-timer-mixin'
@@ -18,7 +17,8 @@ const mapStateToProps = state => {
   return {
     uid: state.ProfileReducer.uid,
     qr: state.ProfileReducer.qr,
-    cardID: state.ProfileReducer.cardID
+    cardID: state.ProfileReducer.cardID,
+    donationID: state.ProfileReducer.donationID,
   }
 }
 class Well extends Component {
@@ -34,11 +34,8 @@ class Well extends Component {
     this.slowDown = this.slowDown.bind(this)
   }
 
-  componentWillUnmount() {
-    timer.clearTimeout(this);
-  }
-
   componentWillMount() {
+    console.log(this.props.donationID)
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xE9E9E9)
     this.camera = new THREE.PerspectiveCamera(75, 1, 1, 10000);
@@ -86,7 +83,7 @@ class Well extends Component {
       let chargeObj = {
         walletAddress: this.props.qr,
         cardID: this.props.cardID,
-        amount: this.state.amount,
+        amount: Number(this.state.amount),
       }
       axios.post('http://localhost:4000/api/makeSavings', chargeObj)
       .then(data => {
@@ -117,8 +114,6 @@ class Well extends Component {
     }
   }
 
-
-
   render() {
 
     const config = {
@@ -128,9 +123,6 @@ class Well extends Component {
 
     return (
       <View>
-        <View>
-          <NavigationBar title={{title:'Wishing Well'}} tintColor='#99ccff'/>
-        </View>
         <View style={styles.inputFields}>
           <View style={{height: "20%"}}>
             <Text style={styles.credentials}>Input Amount</Text>
