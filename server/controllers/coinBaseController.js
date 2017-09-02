@@ -28,5 +28,13 @@ module.exports = {
       //   console.log(buy);
       // })
     });
+  },
+  getBitcoinValue: (req, res) => {
+    let currencyCode = 'USD'
+    client.getSpotPrice({'currency': currencyCode}, function(err, price) {
+      console.log('Current bitcoin price in ' + currencyCode + ': ' +  price.data.amount);
+      res.send(price.data.amount)
+    });
+
   }
 }

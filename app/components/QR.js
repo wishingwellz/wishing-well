@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
   return {
-    qr: state.ProfileReducer.qr
+    uid: state.ProfileReducer.uid
   }
 }
 
@@ -22,7 +22,7 @@ class QR extends Component {
           <NavigationBar title={{title:'QR Code'}} tintColor='#99ccff'/>
         </View>
         <Text>This is your QR code</Text>
-        <QRCode value={this.props.qr} size={200} />
+        <QRCode value={this.props.uid} size={200} />
       </View>
     )
   }
