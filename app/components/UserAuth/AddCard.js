@@ -73,6 +73,9 @@ class AddCard extends Component {
            qr: data
          });
        });
+       alert('Added a Wallet!')
+     }  else {
+       alert('Wallet already added')
      }
    });
  }
@@ -80,35 +83,23 @@ class AddCard extends Component {
  render() {
    return (
      <View>
+       <View style={styles.placeholder}></View>
        <CreditCardInput onChange={this.handleFormChange}/>
-       <Button title="submit" onPress={this.addACard}></Button>
-       <Button title="Add A Wallet" onPress={this.addAWallet}>Add a Wallet</Button>
-
+       <View style={styles.buttonPlaceholder}></View>
+       <Button style={styles.button} title="Submit" onPress={this.addACard}></Button>
+       <Button style={styles.button} title="Add a Wallet" onPress={this.addAWallet}>Add a Wallet</Button>
      </View>
    )
  }
 }
 
 const styles = StyleSheet.create({
- body: {
-   top: 20,
-   justifyContent: 'center',
+ placeholder: {
+   marginTop: '15%',
    alignItems: 'center',
  },
- image: {
-   height: 100,
-   borderRadius: 50,
-   width: 100,
-   alignItems: 'center',
-   backgroundColor: '#C0C0C0'
- },
- icon: {
-   marginTop: 7,
-   marginLeft: 4,
-   color:'gray'
- },
- toggleSwitch: {
-   marginLeft: '41%',
+ buttonPlaceholder: {
+   marginTop: '5%'
  }
 })
 

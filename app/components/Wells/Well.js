@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert, Button } from 'react-native'
 import Expo from 'expo'
 import NavigationBar from 'react-native-navbar'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures'
@@ -8,6 +8,7 @@ import TimerMixin from 'react-timer-mixin'
 import reactMixin from 'react-mixin'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import ConfirmModal from './ConfirmModal.js'
 
 const THREE = require('three')
 const THREEView = Expo.createTHREEViewClass(THREE);
@@ -26,12 +27,12 @@ class Well extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: '',
+      amount: 0,
       description: '',
       coinSpeed: 20,
     }
     this.onSwipeUp = this.onSwipeUp.bind(this);
-    this.slowDown = this.slowDown.bind(this)
+    this.slowDown = this.slowDown.bind(this);
   }
 
   componentWillMount() {
@@ -74,7 +75,7 @@ class Well extends Component {
       description: this.state.description
     })
     this.setState({
-      amount: '',
+      amount: 0,
       description: '',
     })
 
@@ -113,8 +114,6 @@ class Well extends Component {
     }
   }
 
-
-
   render() {
 
     const config = {
@@ -131,11 +130,14 @@ class Well extends Component {
           <View style={{height: "20%"}}>
             <Text style={styles.credentials}>Input Amount</Text>
           </View>
-          <TextInput style={styles.amountInputField} placeholder="Amount Here" onChangeText={(text) => this.setState({amount: text})} value={this.state.amount}/>
+          <TextInput style={styles.amountInputField} placeholder="Amount Here" onChangeText={(text) => this.setState({amount: Number(text)})} value={this.state.amount}/>
           <View style={{height: "20%"}}>
             <Text style={styles.credentials}>Description</Text>
           </View>
-          <TextInput style={styles.descriptionInputField} placeholder='Description Here' onChangeText={(text) => this.setState({description: text})} value={this.state.description}/>
+          <TextInput placeholder='Description Here' placeholderTextColor={'#A8A8A8'} style={styles.descriptionInputField} multiline={true} numberOfLines={2} onChangeText={(text) => this.setState({description: text})} value={this.state.description}/>
+          <View style={styles.confirmModal}>
+            <ConfirmModal amount={this.state.amount} description={this.state.description}/>
+          </View>
         </View>
         <GestureRecognizer
           onSwipeUp={(state) => this.onSwipeUp(state)}
@@ -158,11 +160,12 @@ reactMixin(Well.prototype, TimerMixin);
 
 const styles = StyleSheet.create({
   coin: {
-    height: '80%',
+    top: '6%',
+    height: '75%',
     width: '100%',
   },
   inputFields: {
-    marginTop: '5%',
+    marginTop: '2%',
     marginLeft: '25%',
     height: '20%',
     width: '50%',
@@ -174,9 +177,14 @@ const styles = StyleSheet.create({
   credentials: {
     paddingTop: 10
   },
+  confirmModal: {
+    marginTop: '5%',
+    height: '10%',
+    width: 100,
+  },
   amountInputField: {
     width: '100%',
-    height: '30%',
+    height: '20%',
     borderColor: 'gray',
     borderColor: 'gray',
     borderWidth: 1,
@@ -184,12 +192,13 @@ const styles = StyleSheet.create({
   },
   descriptionInputField: {
     width: '100%',
-    height: '30%',
+    height: '40%',
     borderColor: 'gray',
     borderColor: 'gray',
     borderWidth: 1,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+    fontSize: 15,
+  },
 })
 
 export default connect(mapStateToProps)(Well)
